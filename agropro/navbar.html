@@ -1,0 +1,35 @@
+<header class="header-area">
+    <div class="container-fluid">
+        <div class="row d_flex">
+            <div class="col-md-2 col-sm-3">
+                <div class="logo">
+                    <a href="index.php">Smart<span>Farming</span></a>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-9">
+                <div class="navbar-area">
+                    <nav class="site-navbar">
+                        <ul>
+                            <li><a class="<?= basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '' ?>" href="index.php">Home</a></li>
+                            <li><a class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>" href="about.php">About</a></li>
+                            <li><a class="<?= basename($_SERVER['PHP_SELF']) == 'service.php' ? 'active' : '' ?>" href="service.php">Service</a></li>
+                            <li><a class="<?= basename($_SERVER['PHP_SELF']) == 'projects.php' ? 'active' : '' ?>" href="projects.php">Projects</a></li>
+                            <li><a class="<?= basename($_SERVER['PHP_SELF']) == 'testimonail.php' ? 'active' : '' ?>" href="testimonail.php">Testimonail</a></li>
+                            <li><a class="<?= basename($_SERVER['PHP_SELF']) == 'blog.php' ? 'active' : '' ?>" href="blog.php">Blog</a></li>
+                            <li><a class="<?= basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '' ?>" href="contact.php">Contact</a></li>
+                        </ul>
+                        <button class="nav-toggler">
+                            <span></span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 padd_0 d_none">
+                <ul class="email text_align_right">
+                    <li><a href="profile.php">MyProfile</a></li>
+                    <li><a href="profile.php"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
