@@ -97,7 +97,7 @@
                               <div class="row">
                                  <div class="col-md-12">
                                     <div class="willom">
-                                      <h1> Agriculture Fram</h1>
+                                      <h1> Agricultural Smart Fram</h1>
                                     </div>
                                  </div>
                               </div>
@@ -114,7 +114,7 @@
                      <span>About Us</span>
                      <h2>Empowering Farmers with Data</h2>
                      <p>We help farmers grow smarter. Our smart farming database system gives you real-time access to crop, soil, weather, and irrigation data — all in one place. By making data simple and useful, we help you make better decisions, increase yields, and reduce waste. Whether you're managing one field or many, we're here to make your farm more efficient, productive, and sustainable.</p>
-                     <a class="read_more" href="about.html">Learn More</a>
+                     <a class="read_more" href="https://gca.org/empowering-farmers-with-data-agritech-analytics-impact-on-smallholder-agriculture/">Learn More</a>
                   </div>
                </div>
                <div class="col-lg-6 col-md-12">
@@ -159,7 +159,7 @@
                               Need advice or a helping hand? We connect you with trainers and local farming helpers when you need them and make your work easy</p>
                         </div>
                      </div>
-                     <a class="read_more" href="services.html">Read More</a>
+                     <a class="read_more" href="serv.php">Read More</a>
                   </div>
                </div>
                <div class="col-md-4">
@@ -172,7 +172,7 @@
                               Get info about your soil and real-time weather updates to plan your farm work better.</p>
                         </div>
                      </div>
-                     <a class="read_more" href="services.html">Read More</a>
+                     <a class="read_more" href="serv1.php">Read More</a>
                   </div>
                </div>
                <div class="col-md-4">
@@ -185,7 +185,7 @@
                               We guide you on when and how to use modern machines, fertilizers, and pesticides — so your crops stay healthy and strong.</p>
                         </div>
                      </div>
-                     <a class="read_more" href="services.html">Read More</a>
+                     <a class="read_more" href="serv2.php">Read More</a>
                   </div>
                </div>
                <div class="col-md-4">
@@ -198,7 +198,7 @@
                               We help you pick the right crops and show you the latest market prices so you can earn more.</p>
                         </div>
                      </div>
-                     <a class="read_more" href="services.html">Read More</a>
+                     <a class="read_more" href="serv3.php">Read More</a>
                   </div>
                </div>
             </div>
@@ -381,76 +381,8 @@
       </div>
      
       <!--  footer -->
-      <footer>
-         <div class="footer">
-            <div class="container">
-               <div class="row">
-                         <div class="col-lg-3 col-md-6">
-                           <div class="hedingh3  text_align_left">
-                              <h3>Newsletter</h3>
-                              <form id="colof" class="form_subscri">
-                                 <input class="newsl" placeholder="Enter Email" type="text" name="Email">
-                                 <button class="subsci_btn"><img src="images/new.png" alt="#"/></button>
-                              </form>
-                              
-                           </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                           <div class="hedingh3 text_align_left">
-                              <h3> Explore</h3>
-                              <ul class="menu_footer">
-                                 <li><a href="index.html">Home</a></li>
-                                 <li><a href="about.html">About</a></li>
-                                 <li><a href="service.html">Service</a></li>
-                                 <li><a href="Javascript:void(0)">Projects</a></li>
-                                 <li><a href="testimonail.html">Testimonail</a></li>
-                                 <li><a href="contact.html">Contact us</a></li>
-                              </ul>
-                           </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                           <div class="hedingh3 text_align_left">
-                              <h3>Recent Posts</h3>
-                              <ul class="recent">
-                                 <li><img src="images/resent.jpg" alt="#"/>ea commodo consequat. Duis aute </li>
-                                 <li><img src="images/resent.jpg" alt="#"/>ea commodo consequat. Duis aute </li>
-                              </ul>
-                           </div>
-                        </div>
-                         <div class="col-lg-3 col-md-6">
-                           <div class="hedingh3  flot_right text_align_left">
-                              <h3>ContacT</h3>
-                              <ul class="top_infomation">
-                                 <li><i class="fa fa-phone" aria-hidden="true"></i>
-                                    +01 1234567892
-                                 </li>
-                                 <li><i class="fa fa-envelope" aria-hidden="true"></i>
-                                    <a href="Javascript:void(0)">demo@gmail.com</a>
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-             
-            <div class="copyright">
-               <div class="container">
-                  <div class="row d_flex">
-                     <div class="col-md-8">
-                        <p>© 2022 All Rights Reserved. Design by <a href="https://html.design/"> Free html Templates</a></p>
-                     </div>
-                     <div class="col-md-4">
-                           <ul class="social_icon ">
-                              <li><a href="Javascript:void(0)"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                              <li><a href="Javascript:void(0)"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                              <li><a href="Javascript:void(0)"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                           </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </footer>
+      <?php include 'footer.php'; ?>
+
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>

@@ -58,7 +58,7 @@ $conn->close();
         <div class="navbar-brand">Smart Farming</div>
         <ul class="navbar-menu">
             <li><a href="index.php">Home</a></li>
-            <li><a href="#">MyProfile</a></li>
+            <li><a href="#">Dashboard</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
