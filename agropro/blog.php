@@ -1,6 +1,125 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['message'])) {
+    $userMsg = strtolower(trim($_POST['message']));
+    $botResponse = "Sorry, I couldn't find any info for that.";
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+   // Database connection
+   $servername = "localhost";
+   $username = "root";
+   $password = ""; // no password in xampp default
+   $dbname = "smart_farming";
+
+   $conn = new mysqli($servername, $username, $password, $dbname);
+   if ($conn->connect_error) {
+      echo "Database connection failed!";
+      exit;
+   }
+    // === MARKET ===
+   if (strpos($userMsg, 'market') !== false) {
+        $sql = "SELECT name, address FROM market LIMIT 3";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $botResponse = "Here are some markets:\n";
+            while ($row = $result->fetch_assoc()) {
+                $botResponse .= "- {$row['name']} at {$row['address']}\n";
+            }
+        }
+    }
+
+    // === HELPER ===
+    elseif (strpos($userMsg, 'helper') !== false || strpos($userMsg, 'labour') !== false) {
+        $sql = "SELECT name, phone_number FROM helper LIMIT 3";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $botResponse = "Available helpers:\n";
+            while ($row = $result->fetch_assoc()) {
+                $botResponse .= "- {$row['name']} (Phone: {$row['phone_number']})\n";
+            }
+        }
+    }
+
+    // === WEATHER ===
+    elseif (strpos($userMsg, 'weather') !== false || strpos($userMsg, 'season') !== false) {
+        $sql = "SELECT season, temperature FROM weather LIMIT 3";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $botResponse = "Current season: {$row['season']}. Temperature: {$row['temperature']}°C";
+        }
+    }
+
+    // === LAND ===
+    elseif (strpos($userMsg, 'land') !== false || strpos($userMsg, 'soil') !== false) {
+        $sql = "SELECT soil_type, location FROM lands LIMIT 3";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $botResponse = "Land details:\n";
+            while ($row = $result->fetch_assoc()) {
+                $botResponse .= "- {$row['soil_type']} soil at {$row['location']}\n";
+            }
+        }
+    }
+
+    // === CROPS ===
+    elseif (strpos($userMsg, 'crop') !== false || strpos($userMsg, 'plant') !== false) {
+        $sql = "SELECT name, type, about FROM crops LIMIT 3";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $botResponse = "Available crops:\n";
+            while ($row = $result->fetch_assoc()) {
+                $botResponse .= "- {$row['name']} ({$row['type']}): {$row['about']}\n";
+            }
+        }
+    }
+
+    // === EQUIPMENT ===
+    elseif (strpos($userMsg, 'equipment') !== false || strpos($userMsg, 'tool') !== false) {
+        $sql = "SELECT name, type FROM equipments LIMIT 3";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $botResponse = "Equipments:\n";
+            while ($row = $result->fetch_assoc()) {
+                $botResponse .= "- {$row['name']} ({$row['type']})\n";
+            }
+        }
+    }
+
+    // === PESTICIDES ===
+    elseif (strpos($userMsg, 'pesticide') !== false) {
+        $sql = "SELECT name, type FROM pestides LIMIT 3";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $botResponse = "Pesticides:\n";
+            while ($row = $result->fetch_assoc()) {
+                $botResponse .= "- {$row['name']} ({$row['type']})\n";
+            }
+        }
+    }
+
+    // === FERTILIZER ===
+    elseif (strpos($userMsg, 'fertilizer') !== false) {
+        $sql = "SELECT name, type, nflag, pflag, poflag FROM fertilizer LIMIT 3";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $botResponse = "Fertilizers:\n";
+            while ($row = $result->fetch_assoc()) {
+                $botResponse .= "- {$row['name']} ({$row['type']}), N: {$row['nflag']}, P: {$row['pflag']}, K: {$row['poflag']}\n";
+            }
+        }
+    }
+
+    echo nl2br($botResponse);
+    $conn->close();
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-   <head>
+<head>
       <!-- basic -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,78 +146,118 @@
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-   </head>
-   <!-- body -->
-   <body class="main-layout inner_page blog_page">
-      <!-- loader  -->
-      <div class="loader_bg">
-         <div class="loader"><img src="images/loading.gif" alt="#"/></div>
-      </div>
-      <!-- end loader -->
-      <div class="full_bg">
-         <!-- header -->
-         <?php include('navbar.html'); ?>
-         <!-- end header inner -->
-      </div>
-      <!-- news -->
-      <div class="news">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage text_align_left">
-                     <span>Our</span>
-                     <h2>Latest Blog</h2>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class=" col-md-4">
-                  <div class="latest">
-                     <figure><img src="images/news1.jpg" alt="#"/></figure>
-                     <span>15<br>  March</span>
-                     <div class="nostrud">
-                        <h3>Alteration in somer</h3>
-                        <p>has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making iteditors </p>
-                        <a class="read_more" href="news.html">Read More</a>
-                     </div>
-                  </div>
-               </div>
-               <div class=" col-md-4">
-                  <div class="latest box_desho">
-                     <figure><img src="images/news2.jpg" alt="#"/></figure>
-                     <span>15<br> March</span>
-                     <div class="nostrud">
-                        <h3>Alteration in somer</h3>
-                        <p>has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making iteditors </p>
-                        <a class="read_more" href="news.html">Read More</a>
-                     </div>
-                  </div>
-               </div>
-              <div class=" col-md-4">
-                  <div class="latest">
-                     <figure><img src="images/news3.jpg" alt="#"/></figure>
-                     <span>15<br> March</span>
-                     <div class="nostrud">
-                        <h3>Alteration in somer</h3>
-                        <p>has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making iteditors </p>
-                        <a class="read_more" href="news.html">Read More</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- end news -->
-      <!--  footer -->
-      <?php include 'footer.php'; ?>
+  <meta charset="UTF-8">
+  <title>SmartFarming - Chatbot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('mp.png') no-repeat center center fixed;
+      background-size: cover;
+    }
 
-      <!-- end footer -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/owl.carousel.min.js"></script>
-      <script src="js/bootstrap-datepicker.min.js"></script>
-      <script src="js/custom.js"></script>
-   </body>
+    .chat-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      width: 350px;
+      height: 500px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      margin: 100px auto;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .chat-message {
+      margin-bottom: 10px;
+    }
+
+    .chat-message.user {
+      text-align: right;
+    }
+
+    .chat-message.bot {
+      text-align: left;
+      color: #2ecc71;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+
+    .chat-input button {
+      padding: 10px 15px;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    h1.title {
+      text-align: center;
+      color: white;
+      margin-top: 50px;
+      text-shadow: 1px 1px 5px #000;
+    }
+  </style>
+</head>
+<body>
+
+  <?php include('navbar.html'); ?>
+
+  <div class="chat-container">
+    <div class="chat-box" id="chatBox">
+      <div class="chat-message bot">Hello! Ask me anything about Smart Farming.</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <?php include 'footer.php'; ?>
+
+  <script>
+    function sendMessage() {
+      const userInput = document.getElementById("userInput");
+      const message = userInput.value.trim();
+      if (message === "") return;
+
+      addMessage("user", message);
+      userInput.value = "";
+
+      fetch("blog.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "message=" + encodeURIComponent(message)
+      })
+      .then(response => response.text())
+      .then(reply => addMessage("bot", reply));
+    }
+
+    function addMessage(sender, text) {
+      const chatBox = document.getElementById("chatBox");
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "chat-message " + sender;
+      msgDiv.textContent = text;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+
+</body>
 </html>

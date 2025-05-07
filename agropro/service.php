@@ -96,7 +96,7 @@
                      <div  class="services_box text_align_left">
                           <figure><img src="images/service4.png" alt="#"/></figure>
                         <div class="veget">
-                           <h3>CROPS <br>MARKET</h3>
+                           <h3>CROPS <br> And MARKET</h3>
                            <p>What to grow, where to sell.
                               We help you pick the right crops and show you the latest market prices so you can earn more.</p>
                         </div>

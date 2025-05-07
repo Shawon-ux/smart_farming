@@ -29,7 +29,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
    </head>
    <!-- body -->
-   <body class="main-layout inner_page about_page">
+   <body class="main-layout inner_page blog_page">
       <!-- loader  -->
       <div class="loader_bg">
          <div class="loader"><img src="images/loading.gif" alt="#"/></div>
@@ -38,42 +38,43 @@
       <div class="full_bg">
          <!-- header -->
          <?php include('navbar.html'); ?>
-         
          <!-- end header inner -->
       </div>
-      <!-- end banner -->
-      <!-- about -->
-      <div class="about">
-         <div class="container-fluid">
-            <div class="row d_flex">
-               <div class="col-lg-6 col-md-12">
-                  <div class="titlepage text_align_left">
-                     <span>About Us</span>
-                     <h2>Empowering Farmers with Technology and Data</h2>
-                     <p>We help farmers grow smarter. Our smart farming database system gives you real-time access to crop, soil, weather, and irrigation data — all in one place. By making data simple and useful, we help you make better decisions, increase yields, and reduce waste. Whether you're managing one field or many, we're here to make your farm more efficient, productive, and sustainable.</p>
-                     <a class="read_more" href="https://gca.org/empowering-farmers-with-data-agritech-analytics-impact-on-smallholder-agriculture/">Learn More</a>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-12">
-                  <div class="row d_flex">
-                   <div class="col-md-7">
-                     <div class="about_img">
-                        <figure><img src="images/about_img.jpg" alt="#"/>
-                        </figure>
-                     </div>
-                   </div>
-                   <div class="col-md-5">
-                     <div class="about_img">
-                        <figure><img src="images/about_img1.jpg" alt="#"/>
-                        </figure>
-                     </div>
-                   </div>
-                  </div>
-               </div>
+      <!-- news -->
+        <!-- Content -->
+        <div class="container" style="margin-top: 40px;">
+            <h1>Running Projects</h1>
+
+            <div class="login-container" style="margin: 20px auto;">
+                <h2>Organic Farming Project</h2>
+                <p>Grow organic vegetables using eco-friendly methods.</p>
+                <a href="helper_signup.php?project=Organic%20Farming%20Project">
+                    <button>Sign Up for This Project</button>
+                </a>
             </div>
-         </div>
-      </div>
-      <!-- end about -->
+
+            <div class="login-container" style="margin: 20px auto;">
+                <h2>Irrigation System Setup</h2>
+                <p>Install drip irrigation systems in your field.</p>
+                <a href="helper_signup.php?project=Irrigation%20System%20Setup">
+                    <button>Sign Up for This Project</button>
+                </a>
+            </div>
+
+            <div class="login-container" style="margin: 20px auto;">
+                <h2>Beekeeping Program</h2>
+                <p>Learn and participate in sustainable beekeeping.</p>
+                <a href="helper_signup.php?project=Beekeeping%20Program">
+                    <button>Sign Up for This Project</button>
+                </a>
+            </div>
+
+        </div>
+
+        </body>
+        </html>
+
+      <!-- end news -->
       <!--  footer -->
       <?php include 'footer.php'; ?>
 

@@ -34,27 +34,29 @@
       <div class="loader_bg">
          <div class="loader"><img src="images/loading.gif" alt="#"/></div>
       </div>
-      <!-- end loader -->
-      <div class="full_bg">
-        <header class="header-area">
-            <div class="container-fluid">
-                <div class="row d_flex">
-                    <div class="col-md-2 col-sm-3">
+         <div class="full_bg">
+            <header class="header-area">
+               <div class="container-fluid">
+                  <div class="row d_flex">
+                     <!-- Logo Section -->
+                     <div class="col-md-2 col-sm-3">
                         <div class="logo">
-                            <a href="index.php">Smart<span>Farming</span></a>
+                           <a href="login.php">Smart<span>Farming</span></a>
                         </div>
-                    </div>
-                    <div class="col-md-2 padd_0 d_none">
-                        <ul class="email text_align_right d-flex justify-content-end">
-                            <li class="ms-auto"><a href="login.php">Login</a></li>
-                            <li><a href="profile.php"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                     </div>
+                     
+                     <!-- Navigation Links -->
+                     <div class="col-md-10 padd_0">
+                        <ul class="email text_align_right d-flex justify-content-end align-items-center gap-3" style="list-style: none; margin: 0;">
+                           <li><a class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>" href="about.php">About</a></li>
+                           <li><a href="login.php">Login</a></li>
+                           <li><a href="profile.php"><i class="fa fa-search" aria-hidden="true"></i></a></li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-
+                     </div>
+                  </div>
+               </div>
+            </header>
+         </div>
          <!-- end header inner -->
          <!-- top -->
          <div class="slider_main">
@@ -100,7 +102,7 @@
                                  </div>
                                  <!-- /.carousel-item -->
                               </div>
-                              <!-- /.carousel-inner -->
+                              <!-- /.carousel-inner
                               <a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
                               <i class="fa fa-angle-left" aria-hidden="true"></i>
                               <span class="sr-only">Previous</span>
@@ -108,13 +110,13 @@
                               <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
                               <i class="fa fa-angle-right" aria-hidden="true"></i>
                               <span class="sr-only">Next</span>
-                              </a>
+                              </a>-->
                            </div>
                            <div class="container-fluid">
                               <div class="row">
                                  <div class="col-md-12">
                                     <div class="willom">
-                                      <h1> Agriculture Fram</h1>
+                                      <h1> Agriculture Farm</h1>
                                     </div>
                                  </div>
                               </div>
@@ -122,13 +124,43 @@
          </div>
       </div>
       <!-- end banner -->
+      <div class="about">
+         <div class="container-fluid">
+            <div class="row d_flex">
+               <div class="col-lg-6 col-md-12">
+                  <div class="titlepage text_align_left">
+                     <span>About Us</span>
+                     <h2>Empowering Farmers with Data</h2>
+                     <p>We help farmers grow smarter. Our smart farming database system gives you real-time access to crop, soil, weather, and irrigation data — all in one place. By making data simple and useful, we help you make better decisions, increase yields, and reduce waste. Whether you're managing one field or many, we're here to make your farm more efficient, productive, and sustainable.</p>
+                     <a class="read_more" href="about.html">Learn More</a>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-12">
+                  <div class="row d_flex">
+                   <div class="col-md-7">
+                     <div class="about_img">
+                        <figure><img src="images/about_img.jpg" alt="#"/>
+                        </figure>
+                     </div>
+                   </div>
+                   <div class="col-md-5">
+                     <div class="about_img">
+                        <figure><img src="images/about_img1.jpg" alt="#"/>
+                        </figure>
+                     </div>
+                   </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
       <!-- choose -->
       <div class="choose">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage text_align_center">
-                     <h2>Whay choose us</h2>
+                     <h2>Why choose us</h2>
                   </div>
                </div>
             </div>
@@ -136,7 +168,7 @@
                <div class="col-md-3">
                   <div class="point text_align_center">
                      <h3>300+</h3>
-                     <span>Regula <br>Customers</span>
+                     <span>Regular <br>Customers</span>
                   </div>
                </div>
                <div class="col-md-3">

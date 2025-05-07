@@ -67,7 +67,7 @@ $conn->close();
         <h1>My Profile</h1>
         <div class="profile-card">
             <p><strong>Name:</strong> <span id="name"></span></p>
-            <p><strong>Serial No:</strong> <span id="serialno"></span></p>
+            <p><strong>Farmer_ID:</strong> <span id="serialno"></span></p>
             <p><strong>Mobile Number:</strong> <span id="mb_num"></span></p>
             <p><strong>Training Session:</strong> <span id="training_session"></span></p>
             <p><strong>Address:</strong> <span id="address"></span></p>

@@ -43,65 +43,65 @@
          <div class="slider_main">
             <!-- carousel code -->
              <div id="banner1" class="carousel slide carousel-fade" data-ride="carousel" data-interval="6000">
-                              <ol class="carousel-indicators">
-                                 <li data-target="#banner1" data-slide-to="0" class="active"></li>
-                                 <li data-target="#banner1" data-slide-to="1"></li>
-                                 <li data-target="#banner1" data-slide-to="2"></li>
-                              </ol>
-                              <div class="carousel-inner" role="listbox">
-                                 <div class="carousel-item active">
-                                    <picture>
-                                       <source srcset="images/banner.jpg" >
-                                     
-                                       <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
-                                    </picture>
-                                    <div class="carousel-caption relative">
-                                       
-                                    </div>
-                                 </div>
-                                 <!-- /.carousel-item -->
-                                 <div class="carousel-item">
-                                    <picture>
-                                     
-                                       <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
-                                    </picture>
-                                    <div class="carousel-caption relative">
-                                       
-                                    </div>
-                                 </div>
-                                 <!-- /.carousel-item -->
-                                 <div class="carousel-item">
-                                    <picture>
-                                       <source srcset="images/banner.jpg" >
-                                       <source srcset="images/banner.jpg" >
-                                       <source srcset="images/banner.jpg" >
-                                       <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
-                                    </picture>
-                                    <div class="carousel-caption relative">
-                                       
-                                    </div>
-                                 </div>
-                                 <!-- /.carousel-item -->
-                              </div>
-                              <!-- /.carousel-inner -->
-                              <a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
-                              <i class="fa fa-angle-left" aria-hidden="true"></i>
-                              <span class="sr-only">Previous</span>
-                              </a>
-                              <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
-                              <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              <span class="sr-only">Next</span>
-                              </a>
-                           </div>
-                           <div class="container-fluid">
-                              <div class="row">
-                                 <div class="col-md-12">
-                                    <div class="willom">
-                                      <h1> Agricultural Smart Fram</h1>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
+               <ol class="carousel-indicators">
+                  <li data-target="#banner1" data-slide-to="0" class="active"></li>
+                  <li data-target="#banner1" data-slide-to="1"></li>
+                  <li data-target="#banner1" data-slide-to="2"></li>
+               </ol>
+               <div class="carousel-inner" role="listbox">
+                  <div class="carousel-item active">
+                     <picture>
+                        <source srcset="images/banner.jpg" >
+                        
+                        <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                     </picture>
+                     <div class="carousel-caption relative">
+                        
+                     </div>
+                  </div>
+                  <!-- /.carousel-item -->
+                  <div class="carousel-item">
+                     <picture>
+                        
+                        <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                     </picture>
+                     <div class="carousel-caption relative">
+                        
+                     </div>
+                  </div>
+                  <!-- /.carousel-item -->
+                  <div class="carousel-item">
+                     <picture>
+                        <source srcset="images/banner.jpg" >
+                        <source srcset="images/banner.jpg" >
+                        <source srcset="images/banner.jpg" >
+                        <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                     </picture>
+                     <div class="carousel-caption relative">
+                        
+                     </div>
+                  </div>
+                  <!-- /.carousel-item -->
+               </div>
+               <!-- /.carousel-inner
+               <a class="carousel-control-prev" href="news1.jpg" role="button" data-slide="prev">
+               <i class="fa fa-angle-left" aria-hidden="true"></i>
+               <span class="sr-only">Previous</span>
+               </a>
+               <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
+               <i class="fa fa-angle-right" aria-hidden="true"></i>
+               <span class="sr-only">Next</span>
+               </a>-->
+            </div>
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="willom">
+                        <h1> Agricultural Smart Fram</h1>
+                     </div>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
       <!-- end banner -->
@@ -112,7 +112,7 @@
                <div class="col-lg-6 col-md-12">
                   <div class="titlepage text_align_left">
                      <span>About Us</span>
-                     <h2>Empowering Farmers with Data</h2>
+                     <h2>Empowering Farmers with Technology and Data</h2>
                      <p>We help farmers grow smarter. Our smart farming database system gives you real-time access to crop, soil, weather, and irrigation data — all in one place. By making data simple and useful, we help you make better decisions, increase yields, and reduce waste. Whether you're managing one field or many, we're here to make your farm more efficient, productive, and sustainable.</p>
                      <a class="read_more" href="https://gca.org/empowering-farmers-with-data-agritech-analytics-impact-on-smallholder-agriculture/">Learn More</a>
                   </div>
@@ -193,7 +193,7 @@
                      <div  class="services_box text_align_left">
                           <figure><img src="images/service4.png" alt="#"/></figure>
                         <div class="veget">
-                           <h3>CROPS <br>MARKET</h3>
+                           <h3>CROPS <br> And MARKET</h3>
                            <p>What to grow, where to sell.
                               We help you pick the right crops and show you the latest market prices so you can earn more.</p>
                         </div>
