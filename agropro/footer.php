@@ -2,7 +2,7 @@
    <div class="footer bg-dark text-white pt-5">
       <div class="container">
          <div class="row">
-            <!-- Newsletter -->
+         
             <div class="col-lg-3 col-md-6 mb-4">
                <div class="hedingh3 text_align_left">
                   <h3>Newsletter</h3>
@@ -13,7 +13,7 @@
                </div>
             </div>
 
-            <!-- Explore -->
+            
             <div class="col-lg-3 col-md-6 mb-4">
                <div class="hedingh3 text_align_left">
                   <h3>Explore</h3>
@@ -29,7 +29,7 @@
                </div>
             </div>
 
-            <!-- Recent Posts -->
+           
             <div class="col-lg-3 col-md-6 mb-4">
                <div class="hedingh3 text_align_left">
                   <h3>Recent Posts</h3>
@@ -40,7 +40,7 @@
                </div>
             </div>
 
-            <!-- Contact -->
+           
             <div class="col-lg-3 col-md-6 mb-4">
                <div class="hedingh3 flot_right text_align_left">
                   <h3>Contact</h3>

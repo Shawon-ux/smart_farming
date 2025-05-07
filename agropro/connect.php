@@ -1,19 +1,19 @@
 <?php
-$servername = "localhost";  // or 127.0.0.1
-$username = "root";         // default XAMPP user
-$password = "";             // default XAMPP password is empty
-$database = "smart_farming"; // replace with your actual DB name
+$servername = "localhost"; 
+$username = "root";        
+$password = "";            
+$database = "smart_farming"; 
 
-// Create connection
+
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo "✅ Connection successful!<br><br>";
 
-// Show tables
+
 $sql = "SHOW TABLES";
 $result = $conn->query($sql);
 

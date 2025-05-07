@@ -1,7 +1,7 @@
 <?php
 include 'db.php'; 
 
-// Handle Add Equipment
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_equipment'])) {
     $stmt = $conn->prepare("INSERT INTO equipments (name, type, model_number, availability, market_name) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $_POST['eq_name'], $_POST['eq_type'], $_POST['model_number'], $_POST['availability'], $_POST['market_name']);
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_equipment'])) {
     exit();
 }
 
-// Handle Delete Equipment
+
 if (isset($_GET['delete'])) {
     $id = intval($_GET['delete']);
     $conn->query("DELETE FROM equipments WHERE name = $name");
@@ -19,7 +19,7 @@ if (isset($_GET['delete'])) {
     exit();
 }
 
-// Handle Update Equipment Availability
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_equipment'])) {
     $stmt = $conn->prepare("UPDATE equipments SET availability = ? WHERE name = ?");
     $stmt->bind_param("si", $_POST['availability'], $_POST['name']);
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_equipment'])) {
     exit();
 }
 
-// Fetch all equipments
+
 $equipments = $conn->query("SELECT * FROM equipments");
 ?>
 
@@ -44,12 +44,12 @@ $equipments = $conn->query("SELECT * FROM equipments");
             padding: 20px;
         }
 
-        /* Navigation bar styling */
+        
         .nav {
             margin-bottom: 20px;
             display: flex;
-            justify-content: center; /* Center the buttons */
-            gap: 15px; /* Space between buttons */
+            justify-content: center; 
+            gap: 15px; 
         }
         
         .nav a {
@@ -65,25 +65,24 @@ $equipments = $conn->query("SELECT * FROM equipments");
             background: #0056b3;
         }
 
-        /* Modal Styles */
+        
         .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.4); 
         }
-
         .modal-content {
             background-color: white;
             margin: 10% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 40%; /* Adjust the width as per requirement */
+            width: 40%; 
             border-radius: 10px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
         }
@@ -102,7 +101,7 @@ $equipments = $conn->query("SELECT * FROM equipments");
             cursor: pointer;
         }
 
-        /* Equipment Card Styling */
+       
         .card {
             background: white;
             border-radius: 10px;
@@ -135,7 +134,7 @@ $equipments = $conn->query("SELECT * FROM equipments");
             color: darkred;
         }
 
-        /* Inline form to update availability */
+        
         form.inline-form {
             display: inline;
         }
@@ -189,7 +188,7 @@ $equipments = $conn->query("SELECT * FROM equipments");
     </div>
 <?php endwhile; ?>
 
-<!-- Modal Structure -->
+
 <div id="addEquipmentModal" class="modal">
     <div class="modal-content">
         <span class="close" id="closeModalBtn">&times;</span>
@@ -208,24 +207,24 @@ $equipments = $conn->query("SELECT * FROM equipments");
     </div>
 </div>
 
-<!-- JavaScript to manage the modal -->
+
 <script>
-    // Get modal elements
+    
     var modal = document.getElementById("addEquipmentModal");
     var openModalBtn = document.getElementById("openModalBtn");
     var closeModalBtn = document.getElementById("closeModalBtn");
 
-    // Open the modal
+    
     openModalBtn.onclick = function() {
         modal.style.display = "block";
     }
 
-    // Close the modal when the user clicks on <span> (x)
+  
     closeModalBtn.onclick = function() {
         modal.style.display = "none";
     }
 
-    // Close the modal if the user clicks anywhere outside of the modal
+    
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";

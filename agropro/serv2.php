@@ -1,12 +1,8 @@
 <?php
-// Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "smart_farming";
-$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+include 'db.php';
+
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

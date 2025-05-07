@@ -1,10 +1,6 @@
 <?php
 session_start();
-// Uncomment if session-based admin auth is implemented
-// if (!isset($_SESSION['admin_logged_in'])) {
-//     header("Location: login.php");
-//     exit();
-// }
+
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +8,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel - Smart Farming</title>
-    <!-- Bootstrap CDN -->
+  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -50,12 +46,13 @@ session_start();
             <a href="equipment_list.php" class="btn btn-success btn-lg btn-block w-100">Equipment List</a>
             <a href="fertilizer_list.php" class="btn btn-warning btn-lg btn-block w-100">Fertilizer List</a>
             <a href="pesticide_list.php" class="btn btn-danger btn-lg btn-block w-100">Pesticide List</a>
+            <a href="project_list.php" class="btn btn-danger btn-lg btn-block w-100">Projects</a>
         </div>
     </div>
 
     <a href="logout.php" class="btn btn-outline-secondary logout-btn">Logout</a>
 
-    <!-- Bootstrap JS (optional for interactivity) -->
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

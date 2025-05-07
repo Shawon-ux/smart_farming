@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <!-- basic -->
+      
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
+      
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
+     
       <title>Smart_farming</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
-      <!-- bootstrap css -->
+     
       <link rel="stylesheet" href="css/bootstrap.min.css">
-      <!-- style css -->
+      
       <link rel="stylesheet" href="css/style.css">
-      <!-- Responsive-->
+      
       <link rel="stylesheet" href="css/responsive.css">
-      <!-- fevicon -->
+      
       <link rel="icon" href="images/fevicon.png" type="image/gif" />
-      <!-- Tweaks for older IEs-->
+      
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+      
    </head>
-   <!-- body -->
+   
    <body class="main-layout">
-      <!-- loader  -->
+    
       <div class="loader_bg">
          <div class="loader"><img src="images/loading.gif" alt="#"/></div>
       </div>
-      <!-- end loader -->
+      
       <div class="full_bg">
          <?php include('navbar.html'); ?>
 
-         <!-- end header inner -->
-         <!-- top -->
+        
          <div class="slider_main">
-            <!-- carousel code -->
+         
              <div id="banner1" class="carousel slide carousel-fade" data-ride="carousel" data-interval="6000">
                <ol class="carousel-indicators">
                   <li data-target="#banner1" data-slide-to="0" class="active"></li>
@@ -59,7 +56,7 @@
                         
                      </div>
                   </div>
-                  <!-- /.carousel-item -->
+                  
                   <div class="carousel-item">
                      <picture>
                         
@@ -69,7 +66,7 @@
                         
                      </div>
                   </div>
-                  <!-- /.carousel-item -->
+                 
                   <div class="carousel-item">
                      <picture>
                         <source srcset="images/banner.jpg" >
@@ -81,17 +78,9 @@
                         
                      </div>
                   </div>
-                  <!-- /.carousel-item -->
+                
                </div>
-               <!-- /.carousel-inner
-               <a class="carousel-control-prev" href="news1.jpg" role="button" data-slide="prev">
-               <i class="fa fa-angle-left" aria-hidden="true"></i>
-               <span class="sr-only">Previous</span>
-               </a>
-               <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
-               <i class="fa fa-angle-right" aria-hidden="true"></i>
-               <span class="sr-only">Next</span>
-               </a>-->
+               
             </div>
             <div class="container-fluid">
                <div class="row">
@@ -104,8 +93,7 @@
             </div>
          </div>
       </div>
-      <!-- end banner -->
-      <!-- about -->
+    
       <div class="about">
          <div class="container-fluid">
             <div class="row d_flex">
@@ -136,8 +124,7 @@
             </div>
          </div>
       </div>
-      <!-- end about -->
-      <!-- services -->
+     
       <div class="services">
          <div class="container">
             <div class="row">
@@ -204,8 +191,7 @@
             </div>
          </div>
       </div>
-      <!-- end services -->
-      <!-- customers -->
+  
       <div class="customers">
          <div class="clients_bg">
             <div class="container">
@@ -219,7 +205,7 @@
                </div>
             </div>
          </div>
-         <!-- start slider section -->
+         
          <div id="myCarousel" class="carousel slide clients_banner" data-ride="carousel">
             <ol class="carousel-indicators">
                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -340,8 +326,7 @@
             </a>
          </div>
       </div>
-      <!-- end customers -->
-      <!-- choose -->
+      
       <div class="choose">
          <div class="container">
             <div class="row">
@@ -380,11 +365,10 @@
          </div>
       </div>
      
-      <!--  footer -->
+     
       <?php include 'footer.php'; ?>
 
-      <!-- end footer -->
-      <!-- Javascript files-->
+   
       <script src="js/jquery.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
       <script src="js/jquery-3.0.0.min.js"></script>

@@ -6,10 +6,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['message'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-   // Database connection
+  
    $servername = "localhost";
    $username = "root";
-   $password = ""; // no password in xampp default
+   $password = "";
    $dbname = "smart_farming";
 
    $conn = new mysqli($servername, $username, $password, $dbname);
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       echo "Database connection failed!";
       exit;
    }
-    // === MARKET ===
+  
    if (strpos($userMsg, 'market') !== false) {
         $sql = "SELECT name, address FROM market LIMIT 3";
         $result = $conn->query($sql);
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // === HELPER ===
+
     elseif (strpos($userMsg, 'helper') !== false || strpos($userMsg, 'labour') !== false) {
         $sql = "SELECT name, phone_number FROM helper LIMIT 3";
         $result = $conn->query($sql);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // === WEATHER ===
+
     elseif (strpos($userMsg, 'weather') !== false || strpos($userMsg, 'season') !== false) {
         $sql = "SELECT season, temperature FROM weather LIMIT 3";
         $result = $conn->query($sql);
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // === LAND ===
+
     elseif (strpos($userMsg, 'land') !== false || strpos($userMsg, 'soil') !== false) {
         $sql = "SELECT soil_type, location FROM lands LIMIT 3";
         $result = $conn->query($sql);
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // === CROPS ===
+   
     elseif (strpos($userMsg, 'crop') !== false || strpos($userMsg, 'plant') !== false) {
         $sql = "SELECT name, type, about FROM crops LIMIT 3";
         $result = $conn->query($sql);
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // === EQUIPMENT ===
+  
     elseif (strpos($userMsg, 'equipment') !== false || strpos($userMsg, 'tool') !== false) {
         $sql = "SELECT name, type FROM equipments LIMIT 3";
         $result = $conn->query($sql);
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // === PESTICIDES ===
+  
     elseif (strpos($userMsg, 'pesticide') !== false) {
         $sql = "SELECT name, type FROM pestides LIMIT 3";
         $result = $conn->query($sql);
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // === FERTILIZER ===
+  
     elseif (strpos($userMsg, 'fertilizer') !== false) {
         $sql = "SELECT name, type, nflag, pflag, poflag FROM fertilizer LIMIT 3";
         $result = $conn->query($sql);
@@ -120,32 +120,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <!-- basic -->
+
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
+     
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
+
       <title>Smart_farming</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
-      <!-- bootstrap css -->
+ 
       <link rel="stylesheet" href="css/bootstrap.min.css">
-      <!-- style css -->
+     
       <link rel="stylesheet" href="css/style.css">
-      <!-- Responsive-->
+     
       <link rel="stylesheet" href="css/responsive.css">
-      <!-- fevicon -->
+     
       <link rel="icon" href="images/fevicon.png" type="image/gif" />
-      <!-- Tweaks for older IEs-->
+    
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  
   <meta charset="UTF-8">
   <title>SmartFarming - Chatbot</title>
   <style>

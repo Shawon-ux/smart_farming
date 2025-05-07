@@ -1,30 +1,27 @@
 <?php
-// Form processing logic
+
 $success = "";
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Database connection details
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "smart_farming"; // <-- Change this to your actual DB name
+    
+    include 'db.php';
 
-    // Create connection
+    
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
+    
     if ($conn->connect_error) {
         $error = "Connection failed: " . $conn->connect_error;
     } else {
-        // Get form values
+        
         $name = $_POST['name'];
         $phone_number = $_POST['phone_number'];
         $address = $_POST['address'];
         $h_id = $_POST['h_id'];
         $project_name = $_POST['project_name'];
 
-        // Prepare and bind
+       
         $stmt = $conn->prepare("INSERT INTO helper (name, phone_number, address, h_id, project_name) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $name, $phone_number, $address, $h_id, $project_name);
 

@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
 
     $pdf = new FPDF();
     $pdf->AddPage();
-    $pdf->SetFont('Arial', 'B', 14); // Use Arial only
+    $pdf->SetFont('Arial', 'B', 14); 
 
     
 
@@ -101,12 +101,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(60, 10, "Total Cost: $total_cost", 0, 1);
     
-    $pdf->Output('D', 'farm_report.pdf'); // Triggers download
+    $pdf->Output('D', 'farm_report.pdf'); 
     exit;
     ob_end_flush();
 
 
-    // Generate text file
+  
     $text_content = "FARMING COST CALCULATION REPORT\n";
     $text_content .= "===============================\n";
     $text_content .= "Farmer: $farmer_name\n";
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
     
     $text_content .= "TOTAL COST: $total_cost BDT\n";
     
-    // Generate image file
+
     $image = imagecreatetruecolor(800, 600);
     $white = imagecolorallocate($image, 255, 255, 255);
     $black = imagecolorallocate($image, 0, 0, 0);
@@ -156,14 +156,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
     
     imagefill($image, 0, 0, $white);
     
-    // Add title
+
     imagettftext($image, 24, 0, 50, 50, $darkGreen, 'arial.ttf', "FARMING COST CALCULATION");
     
-    // Add farmer and date
+
     imagettftext($image, 14, 0, 50, 90, $black, 'arial.ttf', "Farmer: $farmer_name");
     imagettftext($image, 14, 0, 50, 120, $black, 'arial.ttf', "Date: " . date('Y-m-d H:i:s'));
     
-    // Add crop details
+  
     $y = 170;
     imagettftext($image, 16, 0, 50, $y, $darkGreen, 'arial.ttf', "CROP DETAILS");
     imagettftext($image, 14, 0, 50, $y + 30, $black, 'arial.ttf', "Crop: $crop_name");
@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
     
     $y += 130;
     
-    // Add equipment if selected
+   
     if ($equipment_cost > 0) {
         imagettftext($image, 16, 0, 50, $y, $darkGreen, 'arial.ttf', "EQUIPMENT");
         imagettftext($image, 14, 0, 50, $y + 30, $black, 'arial.ttf', "Equipment: {$_POST['equipment']}");
@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
         $y += 130;
     }
     
-    // Add fertilizer if selected
+   
     if ($fertilizer_cost > 0) {
         imagettftext($image, 16, 0, 50, $y, $darkGreen, 'arial.ttf', "FERTILIZER");
         imagettftext($image, 14, 0, 50, $y + 30, $black, 'arial.ttf', "Type: {$_POST['fertilizer']}");
@@ -193,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
         $y += 130;
     }
     
-    // Add pesticides if selected
+
     if ($pesticides_cost > 0) {
         imagettftext($image, 16, 0, 50, $y, $darkGreen, 'arial.ttf', "PESTICIDES");
         imagettftext($image, 14, 0, 50, $y + 30, $black, 'arial.ttf', "Type: {$_POST['pesticides']}");
@@ -203,21 +203,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
         $y += 130;
     }
     
-    // Add total cost
+    
     imagettftext($image, 20, 0, 50, $y + 30, $darkGreen, 'arial.ttf', "TOTAL COST:");
     imagettftext($image, 20, 0, 400, $y + 30, $darkGreen, 'arial.ttf', "$total_cost BDT");
     
-    // Generate unique filenames
+    
     $timestamp = time();
     $text_filename = "calculation_{$timestamp}.txt";
     $image_filename = "calculation_{$timestamp}.png";
     
-    // Save files
+
     file_put_contents($text_filename, $text_content);
     imagepng($image, $image_filename);
     imagedestroy($image);
     
-    // Prepare download links
+  
     $download_links = [
         'text' => $text_filename,
         'image' => $image_filename
@@ -388,32 +388,30 @@ function getPrice($table, $name, $priceColumn) {
 </head>
 <body>
     <head>
-      <!-- basic -->
+    
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
+     
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
+   
       <title>Smart_farming</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
-      <!-- bootstrap css -->
+    
       <link rel="stylesheet" href="css/bootstrap.min.css">
-      <!-- style css -->
+ 
       <link rel="stylesheet" href="css/style.css">
-      <!-- Responsive-->
+
       <link rel="stylesheet" href="css/responsive.css">
-      <!-- fevicon -->
+
       <link rel="icon" href="images/fevicon.png" type="image/gif" />
-      <!-- Tweaks for older IEs-->
+   
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
    </head>
     <div>
         <?php include('navbar.html'); ?>
@@ -569,16 +567,16 @@ function getPrice($table, $name, $priceColumn) {
         document.getElementById('displayPesticidesCost').innerText = breakdown.pesticides.toFixed(2) + " BDT";
         document.getElementById('total').innerText = total.toFixed(2) + " BDT";
         
-        // Show results
+      
         document.getElementById('resultSection').style.display = 'block';
         
-        // Enable save button if all required fields are filled
+      
         const requiredFields = ['userSelect', 'landSize', 'cropSelect'];
         const allFilled = requiredFields.every(id => document.getElementById(id).value !== '');
         
         document.getElementById('saveBtn').disabled = !allFilled;
         
-        // Store calculation data
+       
         calculationData = {
             user_id: document.getElementById('userSelect').value,
             land_size: landSize,
@@ -594,16 +592,16 @@ function getPrice($table, $name, $priceColumn) {
     }
     
     function saveCalculation() {
-        // Populate hidden form with all data
+     
         for (const key in calculationData) {
             document.getElementById('save_' + key).value = calculationData[key];
         }
         
-        // Submit the form
+       
         document.getElementById('saveForm').submit();
     }
     
-    // Add event listeners for required fields
+   
     document.getElementById('userSelect').addEventListener('change', checkSaveButton);
     document.getElementById('landSize').addEventListener('input', checkSaveButton);
     document.getElementById('cropSelect').addEventListener('change', checkSaveButton);

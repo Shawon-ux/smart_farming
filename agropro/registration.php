@@ -1,40 +1,40 @@
 <?php
-// Start the session
+
 session_start();
 
-// Check if form is submitted
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Database connection settings
+    
     $servername = "localhost";
     $username = "root";
-    $password = "";  // Default password for XAMPP
+    $password = "";  
     $dbname = "smart_farming";
 
-    // Create a connection
+    
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check the connection
+    
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Get form data, check if set to avoid undefined index warnings
-    $id = isset($_POST['id']) ? $_POST['id'] : '';  // User's ID entered manually
+    
+    $id = isset($_POST['id']) ? $_POST['id'] : '';  
     $name = isset($_POST['name']) ? $_POST['name'] : '';
     $address = isset($_POST['address']) ? $_POST['address'] : '';
     $mb_num = isset($_POST['mb_num']) ? $_POST['mb_num'] : '';
     $training_session = isset($_POST['training_session']) ? $_POST['training_session'] : '';
 
-    // Check if any required field is empty
+    
     if (empty($id) || empty($name) || empty($address) || empty($mb_num) || empty($training_session)) {
         echo "<script>alert('All fields are required!'); window.location.href='registration.php';</script>";
     } else {
-        // Insert the data into the farmer table
+        
         $sql = "INSERT INTO farmer (id, name, address, mb_num, training_session)
                 VALUES ('$id', '$name', '$address', '$mb_num', '$training_session')";
 
-        // Execute the query and check for success
+        
         if ($conn->query($sql) === TRUE) {
             echo "<script>alert('Registration successful!'); window.location.href='login.php';</script>";
         } else {
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Close the database connection
+    
     $conn->close();
 }
 ?>
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 
 <div class="container">
-  <h1>Welcome to Smart Farming</h1> <!-- ✨ Main Heading added -->
+  <h1>Welcome to Smart Farming</h1> 
 
   <div class="register-container">
     <h2>Create Account</h2>

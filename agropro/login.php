@@ -1,41 +1,41 @@
 <?php
 include 'db.php'; 
-session_start();  // Start session
-// Only run if form was submitted
+session_start();  
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Check connection
+    
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Get values from form
+    
     $input1 = $_POST['mb_num'];
     $input2 = $_POST['id'];
 
-    // Sanitize inputs
+    
     $input1 = $conn->real_escape_string($input1);
     $input2 = $conn->real_escape_string($input2);
 
-    // First check farmer table
+    
     $sql = "SELECT * FROM farmer WHERE mb_num = '$input1' AND id = '$input2'";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
-        // Farmer login success
+        
         $_SESSION['mb_num'] = $input1;
         echo "<script>alert('Farmer Login Successful!'); window.location.href='index.php';</script>";
     } else {
-        // If not farmer, check admin credentials
+        
         $sql_admin = "SELECT * FROM admin WHERE username = '$input1' AND password = '$input2'";
         $result_admin = $conn->query($sql_admin);
 
         if ($result_admin->num_rows > 0) {
-            // Admin login success
+            
             $_SESSION['admin_username'] = $input1;
             echo "<script>alert('Admin Login Successful!'); window.location.href='admin_view.php';</script>";
         } else {
-            // Login failed
+           
             echo "<script>alert('Invalid credentials!'); window.location.href='login.php';</script>";
         }
     }
@@ -74,7 +74,7 @@ body {
   overflow: hidden;
 }
 
-/* Nature-inspired overlay */
+
 body::after {
   content: '';
   position: absolute;
@@ -82,7 +82,7 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(240, 248, 242, 0.4); /* Soft greenish-white tint */
+  background: rgba(240, 248, 242, 0.4); 
   z-index: 0;
 }
 
@@ -102,7 +102,7 @@ body::after {
   border-radius: 18px;
   
   font-size: 2.5rem;
-  color: #0a4a1b; /* Deep natural green */
+  color: #0a4a1b; 
   margin-bottom: 1.5rem;
   text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
   font-weight: 600;
@@ -110,9 +110,9 @@ body::after {
 }
 
 .login-container {
-  background: rgba(255, 255, 255, 0.514); /* More transparent */
-  backdrop-filter: blur(2px); /* Slightly stronger blur */
-  border: 1px solid rgba(255, 255, 255, 0.192); /* Softer border */
+  background: rgba(255, 255, 255, 0.514); 
+  backdrop-filter: blur(2px); 
+  border: 1px solid rgba(255, 255, 255, 0.192); 
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
   border-radius: 15px;
@@ -122,7 +122,7 @@ body::after {
 .login-container h2 {
   margin-bottom: 1.8rem;
   font-size: 1.8rem;
-  color: #3a5a40; /* Earthy green */
+  color: #3a5a40; 
   font-weight: 600;
 }
 
@@ -130,7 +130,7 @@ body::after {
   width: 100%;
   padding: 15px 18px;
   margin: 0.8rem 0;
-  border: 1px solid #d1e3d4; /* Light green border */
+  border: 1px solid #d1e3d4;
   border-radius: 10px;
   font-size: 1rem;
   transition: all 0.3s;
@@ -139,7 +139,7 @@ body::after {
 
 .login-container form input:focus {
   outline: none;
-  border-color: #4a8c6d; /* Medium green */
+  border-color: #4a8c6d; 
   box-shadow: 0 0 0 4px rgba(74, 140, 109, 0.15);
   background: white;
 }
@@ -147,7 +147,7 @@ body::after {
 .login-container form button {
   width: 100%;
   padding: 16px;
-  background: linear-gradient(135deg, #4a8c6d, #3a6b53); /* Natural green gradient */
+  background: linear-gradient(135deg, #4a8c6d, #3a6b53);
   border: none;
   border-radius: 10px;
   color: white;
@@ -160,7 +160,7 @@ body::after {
 }
 
 .login-container form button:hover {
-  background: linear-gradient(135deg, #3a6b53, #2a4f3c); /* Darker green */
+  background: linear-gradient(135deg, #3a6b53, #2a4f3c); 
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(58, 107, 83, 0.4);
 }
@@ -168,11 +168,11 @@ body::after {
 .register-link {
   margin-top: 1.8rem;
   font-size: 0.95rem;
-  color: #5a6d5a; /* Muted green-gray */
+  color: #5a6d5a;
 }
 
 .register-link a {
-  color: #4a8c6d; /* Matching button color */
+  color: #4a8c6d; 
   text-decoration: none;
   font-weight: 600;
   transition: all 0.2s;
@@ -180,7 +180,7 @@ body::after {
 }
 
 .register-link a:hover {
-  color: #3a6b53; /* Darker shade */
+  color: #3a6b53; 
 }
 
 .register-link a::after {
@@ -198,7 +198,7 @@ body::after {
   width: 100%;
 }
 
-/* Nature-themed decorative elements */
+
 .decorative-circle {
   position: absolute;
   border-radius: 50%;
@@ -222,7 +222,7 @@ body::after {
   background: radial-gradient(circle, rgba(116, 166, 131, 0.3) 0%, rgba(116, 166, 131, 0) 70%);
 }
 
-/* Leaf-like animation */
+
 @keyframes float-leaf {
   0%, 100% { transform: translateY(0) rotate(-2deg); }
   50% { transform: translateY(-15px) rotate(2deg); }
@@ -232,11 +232,11 @@ body::after {
 
 
 <div class="container">
-  <h1>Welcome to Smart Farming</h1> <!-- Main Heading added -->
+  <h1>Welcome to Smart Farming</h1> 
   
   <div class="login-container">
     <h2>Login</h2>
-    <!-- Form that submits data to the same page (login.php) -->
+    
     <form action="login.php" method="POST">
       <input type="text" placeholder="Mobile Number" name="mb_num" required>
       <input type="password" placeholder="Enter your Password" name="id" required>

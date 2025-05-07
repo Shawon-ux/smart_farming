@@ -6,15 +6,15 @@ if (!isset($_SESSION["helper_id"])) {
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Database connection
+
     $servername = "localhost";
     $username = "root";
-    $password = ""; // no password in xampp default
+    $password = ""; 
     $dbname = "smart_farming";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
+    
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }

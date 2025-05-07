@@ -1,28 +1,25 @@
 <?php
-session_start(); // Important: Start the session to access login info
+session_start(); 
 
-// Check if user is logged in
+
 if (!isset($_SESSION['mb_num'])) {
-    // If not logged in, redirect to login page
+    
     header('Location: login.php');
     exit();
 }
 
-// Fetch user data from database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "smart_farming";
 
-// Create connection
+include 'db.php';
+
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$mb_num = $_SESSION['mb_num']; // Get mobile number from session
+$mb_num = $_SESSION['mb_num']; 
 
 $sql = "SELECT * FROM farmer WHERE mb_num = '$mb_num'";
 $result = $conn->query($sql);
@@ -74,7 +71,7 @@ $conn->close();
         </div>
     </div>
 
-    <!-- JS to insert PHP data into HTML -->
+    
     <script>
         const userData = <?php echo json_encode($userData); ?>;
         
