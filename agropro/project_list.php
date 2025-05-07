@@ -3,8 +3,9 @@ include 'db.php';
 
 // Add new project
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_project'])) {
-    $stmt = $conn->prepare("INSERT INTO project (name, starting_date, ending_date, location, description, status) VALUES (?, ?, ?, ?, ?, 'Unapproved')");
-    $stmt->bind_param("sssss", $_POST['proj_name'], $_POST['start_date'], $_POST['end_date'], $_POST['location'], $_POST['description']);
+    // Prepare the statement to include the phone number
+    $stmt = $conn->prepare("INSERT INTO project (name, starting_date, ending_date, location, description, number, status) VALUES (?, ?, ?, ?, ?, ?, 'Unapproved')");
+    $stmt->bind_param("ssssss", $_POST['proj_name'], $_POST['start_date'], $_POST['end_date'], $_POST['location'], $_POST['description'], $_POST['number']);
     $stmt->execute();
     $stmt->close();
     header("Location: project_list.php");
@@ -190,6 +191,7 @@ $projects = $conn->query("SELECT * FROM project");
         End Date: <?= htmlspecialchars($proj['ending_date']) ?><br>
         Location: <?= htmlspecialchars($proj['location']) ?><br>
         Description: <?= nl2br(htmlspecialchars($proj['description'])) ?><br>
+        Phone Number: <?= htmlspecialchars($proj['number']) ?><br>
         
         <!-- Status indicator -->
         <span class="status <?= $proj['status'] == 'Approved' ? 'status-approved' : 'status-unapproved' ?>">
@@ -219,6 +221,7 @@ $projects = $conn->query("SELECT * FROM project");
             <input type="date" name="end_date" required>
             <input type="text" name="location" placeholder="Location" required>
             <textarea name="description" placeholder="Description" rows="4" required></textarea>
+            <input type="text" name="number" placeholder="Phone Number" required>
             <input type="submit" name="add_project" value="Add">
         </form>
     </div>
