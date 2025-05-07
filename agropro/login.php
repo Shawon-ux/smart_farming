@@ -18,25 +18,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Get values from form
-    $mb_num = $_POST['mb_num'];
-    $id = $_POST['id'];
+    $input1 = $_POST['mb_num'];
+    $input2 = $_POST['id'];
 
-    // Check if user exists
-    $sql = "SELECT * FROM farmer WHERE mb_num = '$mb_num' AND id = '$id'";
+    // Sanitize inputs
+    $input1 = $conn->real_escape_string($input1);
+    $input2 = $conn->real_escape_string($input2);
+
+    // First check farmer table
+    $sql = "SELECT * FROM farmer WHERE mb_num = '$input1' AND id = '$input2'";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
-        // Login success
-        $_SESSION['mb_num'] = $mb_num;
-        echo "<script>alert('Login Successful!'); window.location.href='index.php';</script>";
+        // Farmer login success
+        $_SESSION['mb_num'] = $input1;
+        echo "<script>alert('Farmer Login Successful!'); window.location.href='index.php';</script>";
     } else {
-        // Login fail
-        echo "<script>alert('Invalid Mobile Number or ID!'); window.location.href='login.php';</script>";
+        // If not farmer, check admin credentials
+        $sql_admin = "SELECT * FROM admin WHERE username = '$input1' AND password = '$input2'";
+        $result_admin = $conn->query($sql_admin);
+
+        if ($result_admin->num_rows > 0) {
+            // Admin login success
+            $_SESSION['admin_username'] = $input1;
+            echo "<script>alert('Admin Login Successful!'); window.location.href='admin_view.php';</script>";
+        } else {
+            // Login failed
+            echo "<script>alert('Invalid credentials!'); window.location.href='login.php';</script>";
+        }
     }
 
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
