@@ -1,16 +1,8 @@
 <?php
+include 'db.php'; 
 session_start();  // Start session
-
 // Only run if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = ""; // no password in xampp default
-    $dbname = "smart_farming";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Check connection
     if ($conn->connect_error) {
