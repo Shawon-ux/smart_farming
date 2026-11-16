@@ -55,13 +55,13 @@
                   <div class="row d_flex">
                    <div class="col-md-7">
                      <div class="about_img">
-                        <figure><img src="images/about_img.jpg" alt="#"/>
+                        <figure><img src="images/bd/t4.jpg" alt="#"/>
                         </figure>
                      </div>
                    </div>
                    <div class="col-md-5">
                      <div class="about_img">
-                        <figure><img src="images/about_img1.jpg" alt="#"/>
+                        <figure><img src="images/bd/t6.jpg" alt="#"/>
                         </figure>
                      </div>
                    </div>

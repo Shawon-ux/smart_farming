@@ -1,58 +1,44 @@
 <?php
-session_start();
-
+require_once __DIR__ . '/admin_layout.php';
+$stats = [
+    ['user_list.php', 'c1', 'bi-people', admin_count("SELECT COUNT(*) FROM farmer"), 'Registered farmers'],
+    ['project_list.php', 'c2', 'bi-kanban', admin_count("SELECT COUNT(*) FROM project WHERE status='Approved'"), 'Running projects'],
+    ['project_list.php', 'c3', 'bi-hourglass-split', admin_count("SELECT COUNT(*) FROM project WHERE status='Unapproved'"), 'Projects awaiting approval'],
+    ['admin_requests.php', 'c4', 'bi-person-lock', admin_count("SELECT COUNT(*) FROM profile_change_request WHERE status='Pending'"), 'Profile change requests'],
+    ['equipment_list.php', 'c5', 'bi-tools', admin_count("SELECT COUNT(*) FROM equipments"), 'Equipment items'],
+    ['fertilizer_list.php', 'c6', 'bi-droplet-half', admin_count("SELECT COUNT(*) FROM fertilizer"), 'Fertilizers'],
+    ['pesticide_list.php', 'c4', 'bi-bug', admin_count("SELECT COUNT(*) FROM pesticides"), 'Pesticides'],
+    ['project_list.php', 'c1', 'bi-person-raised-hand', admin_count("SELECT COUNT(*) FROM helper"), 'Helper sign-ups'],
+];
+$pending = $conn->query("SELECT name, location, submitted_by, starting_date FROM project WHERE status='Unapproved' ORDER BY starting_date LIMIT 6");
+$reqs = $conn->query("SELECT r.field, r.new_value, f.name FROM profile_change_request r JOIN farmer f ON f.id=r.farmer_id WHERE r.status='Pending' ORDER BY r.req_id DESC LIMIT 6");
+admin_header('Dashboard', 'home');
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Panel - Smart Farming</title>
-  
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 60px;
-            background-color: #f1f4f9;
-        }
-        .admin-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .admin-panel {
-            max-width: 600px;
-            margin: auto;
-        }
-        .btn-block {
-            margin-bottom: 15px;
-        }
-        .logout-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <div class="admin-header">
-            <h1 class="display-5">Smart Farming Admin Panel</h1>
-            <p class="text-muted">Manage system entities</p>
-        </div>
-
-        <div class="admin-panel">
-            <a href="user_list.php" class="btn btn-primary btn-lg btn-block w-100">User/Farmer List</a>
-            <a href="equipment_list.php" class="btn btn-success btn-lg btn-block w-100">Equipment List</a>
-            <a href="fertilizer_list.php" class="btn btn-warning btn-lg btn-block w-100">Fertilizer List</a>
-            <a href="pesticide_list.php" class="btn btn-danger btn-lg btn-block w-100">Pesticide List</a>
-            <a href="project_list.php" class="btn btn-danger btn-lg btn-block w-100">Projects</a>
-        </div>
+<div class="stats">
+  <?php foreach ($stats as [$href, $c, $ic, $n, $label]): ?>
+    <a class="stat" href="<?= $href ?>"><div class="ic <?= $c ?>"><i class="bi <?= $ic ?>"></i></div><div><b><?= $n ?></b><span><?= $label ?></span></div></a>
+  <?php endforeach; ?>
+</div>
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="panel">
+      <div class="panel-h"><h2>Projects awaiting approval</h2><a class="abtn sm ghost" href="project_list.php">Manage</a></div>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Project</th><th>Location</th><th>Submitted by</th><th>Starts</th></tr></thead><tbody>
+        <?php if ($pending && $pending->num_rows): while ($p = $pending->fetch_assoc()): ?>
+          <tr><td><strong><?= htmlspecialchars($p['name']) ?></strong></td><td><?= htmlspecialchars($p['location']) ?></td><td><?= htmlspecialchars($p['submitted_by'] ?? '—') ?></td><td><?= htmlspecialchars($p['starting_date']) ?></td></tr>
+        <?php endwhile; else: ?><tr><td colspan="4" class="empty">Nothing waiting 🎉</td></tr><?php endif; ?>
+      </tbody></table></div>
     </div>
-
-    <a href="logout.php" class="btn btn-outline-secondary logout-btn">Logout</a>
-
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+  </div>
+  <div class="col-lg-5">
+    <div class="panel">
+      <div class="panel-h"><h2>Profile change requests</h2><a class="abtn sm ghost" href="admin_requests.php">Review</a></div>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Farmer</th><th>Change</th></tr></thead><tbody>
+        <?php if ($reqs && $reqs->num_rows): while ($r = $reqs->fetch_assoc()): ?>
+          <tr><td><?= htmlspecialchars($r['name']) ?></td><td><span class="pill p-warn"><?= $r['field'] === 'email' ? 'Email' : 'Mobile' ?></span> <?= htmlspecialchars($r['new_value']) ?></td></tr>
+        <?php endwhile; else: ?><tr><td colspan="2" class="empty">No pending requests</td></tr><?php endif; ?>
+      </tbody></table></div>
+    </div>
+  </div>
+</div>
+<?php admin_footer(); ?>

@@ -1,43 +1,34 @@
 <?php
-include 'db.php'; 
-session_start();  
+include 'db.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    
-    $input1 = $_POST['mb_num'];
+    $input1 = trim($_POST['mb_num']);
     $input2 = $_POST['id'];
 
-    
-    $input1 = $conn->real_escape_string($input1);
-    $input2 = $conn->real_escape_string($input2);
+    // Admin login: email + password (stored hashed)
+    $stmt = $conn->prepare("SELECT password FROM admin WHERE username = ?");
+    $stmt->bind_param("s", $input1);
+    $stmt->execute();
+    $admin = $stmt->get_result()->fetch_assoc();
+    if ($admin && password_verify($input2, $admin['password'])) {
+        session_regenerate_id(true);
+        $_SESSION['admin_username'] = $input1;
+        header("Location: admin_view.php");
+        exit();
+    }
 
-    
-    $sql = "SELECT * FROM farmer WHERE mb_num = '$input1' AND id = '$input2'";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        
+    // Farmer login: mobile number + id
+    $stmt = $conn->prepare("SELECT id FROM farmer WHERE mb_num = ? AND id = ?");
+    $stmt->bind_param("ss", $input1, $input2);
+    $stmt->execute();
+    $fr = $stmt->get_result()->fetch_assoc();
+    if ($fr) {
+        $_SESSION["farmer_id"] = $fr["id"];
         $_SESSION['mb_num'] = $input1;
         echo "<script>alert('Farmer Login Successful!'); window.location.href='index.php';</script>";
     } else {
-        
-        $sql_admin = "SELECT * FROM admin WHERE username = '$input1' AND password = '$input2'";
-        $result_admin = $conn->query($sql_admin);
-
-        if ($result_admin->num_rows > 0) {
-            
-            $_SESSION['admin_username'] = $input1;
-            echo "<script>alert('Admin Login Successful!'); window.location.href='admin_view.php';</script>";
-        } else {
-           
-            echo "<script>alert('Invalid credentials!'); window.location.href='login.php';</script>";
-        }
+        echo "<script>alert('Invalid credentials!'); window.location.href='login.php';</script>";
     }
 
     $conn->close();
@@ -69,7 +60,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: 
   linear-gradient(rgba(227, 227, 227, 0.171), rgba(5, 96, 5, 0.275)),
-      url('https://www.symmetryelectronics.com/getmedia/5ddf849b-de2f-42f5-99c6-24ee59a98b22/iStock-1429073633.jpg') center/cover no-repeat;
+      url('images/bd/login.jpg') center/cover no-repeat;
   position: relative;
   overflow: hidden;
 }
@@ -238,7 +229,7 @@ body::after {
     <h2>Login</h2>
     
     <form action="login.php" method="POST">
-      <input type="text" placeholder="Mobile Number" name="mb_num" required>
+      <input type="text" placeholder="Mobile Number or Admin Email" name="mb_num" required>
       <input type="password" placeholder="Enter your Password" name="id" required>
       <button type="submit">Login</button>
     </form>

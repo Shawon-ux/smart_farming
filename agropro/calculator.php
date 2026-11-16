@@ -115,380 +115,170 @@ function getPrice($table, $name, $priceColumn) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Farming Calculator</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #e0f7fa, #e0f2f1);
-            margin: 0;
-            padding: 2px;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background: white;
-            padding: 5px;
-            border-radius: 15px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-        }
-
-        .container img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #00796B;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            gap: 10px;
-        }
-
-        .form-group label {
-            width: 100px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        select, input[type=number] {
-            flex: 1;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        span.price {
-            min-width: 70px;
-            text-align: right;
-            font-weight: bold;
-            color: #388E3C;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .btn-calculate {
-            background-color: #00796B;
-            color: white;
-        }
-
-        .btn-calculate:hover {
-            background-color: #004d40;
-        }
-
-        .btn-save {
-            background-color: #0288D1;
-            color: white;
-        }
-
-        .btn-save:hover {
-            background-color: #01579B;
-        }
-
-        .btn:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-
-        .result-section {
-            margin-top: 25px;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border-radius: 10px;
-            border-left: 5px solid #00796B;
-        }
-
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .total-cost {
-            font-size: 24px;
-            font-weight: bold;
-            color: #00796B;
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .success-message {
-            background-color: #C8E6C9;
-            color: #256029;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-            display: <?php echo !empty($success) ? 'block' : 'none'; ?>;
-        }
-
-        @media (max-width: 600px) {
-            .form-group {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .form-group label {
-                width: auto;
-            }
-
-            span.price {
-                text-align: left;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cost Calculator - Smart Farming</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/projects.css">
+  <link rel="icon" href="images/fevicon.png" type="image/gif" />
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <style>
+    .calc-wrap{background:#f4f7ea;padding:50px 0 70px}
+    .calc-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start}
+    .calc-card{background:#fff;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.08);padding:32px;color:#1f2a1f}
+    .calc-card h3{color:#1f2a1f;font-size:22px;margin:0 0 22px;padding-bottom:12px;border-bottom:2px solid #eef2dc}
+    .calc-card h3 i{color:#6b7908;margin-right:8px}
+    .calc-field{margin-bottom:18px}
+    .calc-field>label{display:block;font-weight:600;color:#1f2a1f;margin-bottom:6px;font-size:14px}
+    .calc-row{display:grid;grid-template-columns:1fr 110px;gap:10px}
+    .calc-input{width:100%;padding:12px 14px;border:1.5px solid #dfe5cf;border-radius:10px;background:#fff;color:#1f2a1f;font-size:15px;transition:.2s}
+    .calc-input:focus{outline:0;border-color:#6b7908;box-shadow:0 0 0 3px rgba(107,121,8,.15)}
+    .calc-hint{display:block;font-size:13px;color:#6b7908;font-weight:600;margin-top:5px;min-height:18px}
+    .calc-sec{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#6b7908;font-weight:700;margin:26px 0 14px}
+    .calc-actions{display:flex;gap:12px;margin-top:26px}
+    .calc-actions .pj-btn{flex:1;text-align:center;font-size:16px;padding:14px}
+    .calc-actions .pj-btn:disabled{background:#c9cfb8;cursor:not-allowed;transform:none}
+    .calc-actions .alt{background:#fff;color:#6b7908;border:2px solid #6b7908}
+    .calc-actions .alt:hover:not(:disabled){background:#6b7908;color:#fff}
+    .calc-actions .alt:disabled{background:#fff;color:#aab08f;border-color:#d5dac3}
+    .calc-sum{position:sticky;top:20px;background:linear-gradient(160deg,#6b7908,#3d4a05);color:#fff;border-radius:18px;padding:32px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+    .calc-sum h3{color:#fff;font-size:22px;margin:0 0 20px}
+    .calc-line{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.18);color:#fff;font-size:15px}
+    .calc-line span:last-child{font-weight:600}
+    .calc-total{margin-top:22px;background:rgba(255,255,255,.15);border-radius:14px;padding:18px;text-align:center}
+    .calc-total small{display:block;color:#e9f0c0;letter-spacing:1px;text-transform:uppercase;font-size:12px}
+    .calc-total strong{display:block;color:#fff;font-size:34px;margin-top:4px}
+    .calc-empty{color:#e9f0c0;font-size:13px;margin-top:14px;text-align:center}
+    @media(max-width:900px){.calc-grid{grid-template-columns:1fr}.calc-sum{position:static}.calc-card{padding:22px}.calc-actions{flex-direction:column}}
+  </style>
 </head>
-<body>
-    <head>
-      
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    
-      <title>Smart_farming</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      
-      <link rel="stylesheet" href="css/bootstrap.min.css">
-      
-      <link rel="stylesheet" href="css/style.css">
-      
-      <link rel="stylesheet" href="css/responsive.css">
-    
-      <link rel="icon" href="images/fevicon.png" type="image/gif" />
-      
-      <link rel="stylesheet" href="css/owl.carousel.min.css">
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-   </head>
-    <div>
-        <?php include('navbar.html'); ?>
-    </div>
-<div class="container">
-    <img class="small-image" src="https://static.vecteezy.com/system/resources/previews/013/478/830/non_2x/smart-fariming-solar-cell-water-pump-and-robot-system-equipment-component-diagram-isometric-vector.jpg" alt="Farming Image">
-    <h2>Farming Cost Calculator</h2>
+<body class="main-layout inner_page">
+  <?php include('navbar.html'); ?>
 
-    
-    <?php if (!empty($download_links)): ?>
-        <div class="success-message">
-            <h3>Your calculation is ready!</h3>
-            <a href="<?php echo $download_links['text']; ?>" class="download-btn" download>Download as Text File</a>
-            <a href="<?php echo $download_links['image']; ?>" class="download-btn" download>Download as Image</a>
-        </div>
-    <?php endif; ?>
-    
-    <form id="calculator">
-        <div class='form-group'>
-            <label>Farmer:</label>
-            <select id='userSelect' name='user_id' required>
-                <option value=''>Select Farmer</option>
-                <?php foreach ($farmers as $id => $name): ?>
-                    <option value='<?php echo $id; ?>'><?php echo htmlspecialchars($name); ?></option>
-                <?php endforeach; ?>
+  <section class="page-hero">
+    <span class="badge-pill">Cost Calculator</span>
+    <h1>Farming Cost Calculator</h1>
+    <p>Estimate crop, equipment, fertilizer and pesticide costs for your land, then download a PDF report.</p>
+  </section>
+
+  <section class="calc-wrap">
+    <div class="container">
+      <div class="calc-grid">
+        <form id="calculator" class="calc-card" onsubmit="return false">
+          <h3><i class="fa fa-calculator"></i>Your Details</h3>
+          <div class="calc-field">
+            <label>Farmer</label>
+            <select id="userSelect" class="calc-input" required>
+              <option value="">Select farmer</option>
+              <?php foreach ($farmers as $id => $name): ?>
+                <option value="<?= htmlspecialchars($id) ?>"><?= htmlspecialchars($name) ?></option>
+              <?php endforeach; ?>
             </select>
-        </div>
-        
-        <div class='form-group'>
-            <label>Land Size (acres):</label>
-            <input type='number' id='landSize' name='land_size' min='0' step='0.1' required>
-        </div>
-        
-        <div class="crop-section">
-            <div class='form-group'>
-                <label>Crop:</label>
-                <select id='cropSelect' name='crop_id' onchange='updatePrice("crop")' required>
-                    <option value=''>Select Crop</option>
-                    <?php foreach ($crops as $item): 
-                        $crop_id = array_search($item['name'], array_column($crops, 'name')) + 1;
-                        $name = htmlspecialchars($item['name']);
-                        $price = htmlspecialchars($item['price']);
-                    ?>
-                        <option value='<?php echo $crop_id; ?>' data-price='<?php echo $price; ?>'>
-                            <?php echo $name; ?> (<?php echo $price; ?> BDT/acre)
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <span id='cropPrice' class='price'>0 BDT</span>
-            </div>
-        </div>
-        
-        <?php
-        function buildSelector($label, $items, $type) {
-            echo "<div class='form-group'>
-                    <label>$label:</label>
-                    <select id='{$type}Select' name='{$type}' onchange='updatePrice(\"$type\")'>
-                        <option value=''>Select</option>";
-            foreach ($items as $item) {
-                $name = htmlspecialchars($item['name']);
-                $price = htmlspecialchars($item['price']);
-                echo "<option value='{$name}' data-price='{$price}'>{$name} ({$price} BDT)</option>";
-            }
-            echo "</select>
-                <input type='number' id='{$type}Qty' name='{$type}_qty' placeholder='Qty' min='0'>
-                <span id='{$type}Price' class='price'>0 BDT</span>
-              </div>";
-        }
+          </div>
+          <div class="calc-field">
+            <label>Land size (acres)</label>
+            <input type="number" id="landSize" class="calc-input" min="0" step="0.1" placeholder="e.g. 2.5" required>
+          </div>
+          <div class="calc-field">
+            <label>Crop</label>
+            <select id="cropSelect" class="calc-input" required>
+              <option value="">Select crop</option>
+              <?php foreach ($crops as $i => $item): ?>
+                <option value="<?= $i + 1 ?>" data-price="<?= htmlspecialchars($item['price']) ?>"><?= htmlspecialchars($item['name']) ?> (<?= htmlspecialchars($item['price']) ?> BDT/acre)</option>
+              <?php endforeach; ?>
+            </select>
+          </div>
 
-        buildSelector("Equipment", $equipments, "equipment");
-        buildSelector("Fertilizer", $fertilizer, "fertilizer");
-        buildSelector("Pesticides", $pesticides, "pesticides");
-        ?>
-        
-        <div class="button-group">
-            <button type="button" class="btn btn-calculate" onclick="calculateTotal()">Calculate</button>
-            <button type="button" class="btn btn-save" id="saveBtn" disabled onclick="saveCalculation()">Generate Report</button>
-        </div>
-        
-        <div class="result-section" id="resultSection" style="display: none;">
-            <div class="result-row">
-                <span>Crop Cost:</span>
-                <span id="displayCropCost">0 BDT</span>
-            </div>
-            <div class="result-row">
-                <span>Equipment Cost:</span>
-                <span id="displayEquipmentCost">0 BDT</span>
-            </div>
-            <div class="result-row">
-                <span>Fertilizer Cost:</span>
-                <span id="displayFertilizerCost">0 BDT</span>
-            </div>
-            <div class="result-row">
-                <span>Pesticides Cost:</span>
-                <span id="displayPesticidesCost">0 BDT</span>
-            </div>
-            <div class="total-cost">
-                Total Cost: <span id="total">0 BDT</span>
-            </div>
-        </div>
-    </form>
-    
-    <form id="saveForm" method="POST" style="display: none;">
-        <input type="hidden" name="user_id" id="save_user_id">
-        <input type="hidden" name="land_size" id="save_land_size">
-        <input type="hidden" name="crop_id" id="save_crop_id">
-        <input type="hidden" name="equipment" id="save_equipment">
-        <input type="hidden" name="equipment_qty" id="save_equipment_qty">
-        <input type="hidden" name="fertilizer" id="save_fertilizer">
-        <input type="hidden" name="fertilizer_qty" id="save_fertilizer_qty">
-        <input type="hidden" name="pesticides" id="save_pesticides">
-        <input type="hidden" name="pesticides_qty" id="save_pesticides_qty">
-        <input type="hidden" name="total_cost" id="save_total_cost">
-        <input type="hidden" name="generate_files" value="1">
-    </form>
-</div>
+          <div class="calc-sec">Optional inputs</div>
+          <?php
+          function calcSelector($label, $items, $type, $unit) {
+              echo "<div class='calc-field'><label>$label</label><div class='calc-row'>
+                    <select id='{$type}Select' class='calc-input'><option value=''>None</option>";
+              foreach ($items as $it) {
+                  $n = htmlspecialchars($it['name']); $p = htmlspecialchars($it['price']);
+                  echo "<option value='$n' data-price='$p'>$n ($p BDT/$unit)</option>";
+              }
+              echo "</select><input type='number' id='{$type}Qty' class='calc-input' placeholder='Qty' min='0'></div></div>";
+          }
+          calcSelector("Equipment", $equipments, "equipment", "day");
+          calcSelector("Fertilizer", $fertilizer, "fertilizer", "kg");
+          calcSelector("Pesticides", $pesticides, "pesticides", "unit");
+          ?>
+          <div class="calc-actions">
+            <button type="button" class="pj-btn" onclick="calculateTotal()">Calculate</button>
+            <button type="button" class="pj-btn alt" id="saveBtn" disabled onclick="saveCalculation()"><i class="fa fa-download"></i> Download PDF</button>
+          </div>
+        </form>
 
-<script>
-    let calculationData = {};
-    
-    function updatePrice(type) {
-        const select = document.getElementById(type + "Select");
-        const price = select.options[select.selectedIndex]?.getAttribute('data-price') || 0;
-        document.getElementById(type + "Price").innerText = price + " BDT";
-    }
+        <aside class="calc-sum">
+          <h3><i class="fa fa-leaf"></i> Cost Summary</h3>
+          <div class="calc-line"><span>Crop</span><span id="displayCropCost">0.00 BDT</span></div>
+          <div class="calc-line"><span>Equipment</span><span id="displayEquipmentCost">0.00 BDT</span></div>
+          <div class="calc-line"><span>Fertilizer</span><span id="displayFertilizerCost">0.00 BDT</span></div>
+          <div class="calc-line"><span>Pesticides</span><span id="displayPesticidesCost">0.00 BDT</span></div>
+          <div class="calc-total"><small>Total cost</small><strong id="total">0.00 BDT</strong></div>
+          <div class="calc-empty" id="calcHint">Fill in the form and press Calculate.</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <form id="saveForm" method="POST" style="display:none">
+    <?php foreach (['user_id','land_size','crop_id','equipment','equipment_qty','fertilizer','fertilizer_qty','pesticides','pesticides_qty','total_cost'] as $f): ?>
+      <input type="hidden" name="<?= $f ?>" id="save_<?= $f ?>">
+    <?php endforeach; ?>
+    <input type="hidden" name="generate_files" value="1">
+  </form>
+
+  <?php include 'footer.php'; ?>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const priceOf = id => parseFloat($(id).selectedOptions[0]?.dataset.price) || 0;
+    const fmt = n => n.toFixed(2) + ' BDT';
+    let calculationData = null;
 
     function calculateTotal() {
-        const landSize = parseFloat(document.getElementById('landSize').value) || 0;
-        const cropPrice = parseFloat(document.getElementById('cropPrice').innerText) || 0;
-        const cropCost = cropPrice * landSize;
-        
-        const types = ['equipment', 'fertilizer', 'pesticides'];
-        let total = cropCost;
-        let breakdown = {
-            crop: cropCost,
-            equipment: 0,
-            fertilizer: 0,
-            pesticides: 0
-        };
-        
-        types.forEach(type => {
-            const price = parseFloat(document.getElementById(type + 'Price').innerText) || 0;
-            const qty = parseInt(document.getElementById(type + 'Qty').value) || 0;
-            const cost = price * qty;
-            total += cost;
-            breakdown[type] = cost;
-        });
-        
-        
-        document.getElementById('displayCropCost').innerText = cropCost.toFixed(2) + " BDT";
-        document.getElementById('displayEquipmentCost').innerText = breakdown.equipment.toFixed(2) + " BDT";
-        document.getElementById('displayFertilizerCost').innerText = breakdown.fertilizer.toFixed(2) + " BDT";
-        document.getElementById('displayPesticidesCost').innerText = breakdown.pesticides.toFixed(2) + " BDT";
-        document.getElementById('total').innerText = total.toFixed(2) + " BDT";
-        
-    
-        document.getElementById('resultSection').style.display = 'block';
-        
-    
-        const requiredFields = ['userSelect', 'landSize', 'cropSelect'];
-        const allFilled = requiredFields.every(id => document.getElementById(id).value !== '');
-        
-        document.getElementById('saveBtn').disabled = !allFilled;
-        
-        
+      const land = parseFloat($('landSize').value) || 0;
+      const cost = { crop: priceOf('cropSelect') * land };
+      ['equipment','fertilizer','pesticides'].forEach(t => {
+        cost[t] = priceOf(t + 'Select') * (parseFloat($(t + 'Qty').value) || 0);
+      });
+      const total = cost.crop + cost.equipment + cost.fertilizer + cost.pesticides;
+      $('displayCropCost').innerText = fmt(cost.crop);
+      $('displayEquipmentCost').innerText = fmt(cost.equipment);
+      $('displayFertilizerCost').innerText = fmt(cost.fertilizer);
+      $('displayPesticidesCost').innerText = fmt(cost.pesticides);
+      $('total').innerText = fmt(total);
 
+      const ready = $('userSelect').value && land > 0 && $('cropSelect').value;
+      calculationData = ready ? {
+        user_id: $('userSelect').value, land_size: land, crop_id: $('cropSelect').value,
+        equipment: $('equipmentSelect').value, equipment_qty: $('equipmentQty').value,
+        fertilizer: $('fertilizerSelect').value, fertilizer_qty: $('fertilizerQty').value,
+        pesticides: $('pesticidesSelect').value, pesticides_qty: $('pesticidesQty').value,
+        total_cost: total
+      } : null;
+      $('saveBtn').disabled = !ready;
+      $('calcHint').innerText = ready ? 'Looks good — you can download the PDF report.' : 'Select a farmer, land size and crop to enable the report.';
     }
-    
+
     function saveCalculation() {
-        
-        for (const key in calculationData) {
-            document.getElementById('save_' + key).value = calculationData[key];
-        }
-        
-    
-        document.getElementById('saveForm').submit();
+      if (!calculationData) return;
+      for (const k in calculationData) $('save_' + k).value = calculationData[k];
+      $('saveForm').submit();
     }
-    
-    
-    document.getElementById('userSelect').addEventListener('change', checkSaveButton);
-    document.getElementById('landSize').addEventListener('input', checkSaveButton);
-    document.getElementById('cropSelect').addEventListener('change', checkSaveButton);
-    
-    function checkSaveButton() {
-        const requiredFields = ['userSelect', 'landSize', 'cropSelect'];
-        const allFilled = requiredFields.every(id => document.getElementById(id).value !== '');
-        const saveBtn = document.getElementById('saveBtn');
-        
-        if (allFilled && document.getElementById('resultSection').style.display === 'block') {
-            saveBtn.disabled = false;
-        } else {
-            saveBtn.disabled = true;
-        }
-    }
-    
-</script>
+
+    // live update + invalidate stale report when inputs change
+    document.querySelectorAll('#calculator select, #calculator input').forEach(el => {
+      el.addEventListener('input', calculateTotal);
+      el.addEventListener('change', calculateTotal);
+    });
+  </script>
 </body>
 </html>

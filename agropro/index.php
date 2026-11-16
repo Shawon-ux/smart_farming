@@ -18,6 +18,7 @@
       <link rel="stylesheet" href="css/style.css">
       
       <link rel="stylesheet" href="css/responsive.css">
+      <link rel="stylesheet" href="css/projects.css">
       
       <link rel="icon" href="images/fevicon.png" type="image/gif" />
       
@@ -48,9 +49,9 @@
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
                      <picture>
-                        <source srcset="images/banner.jpg" >
+                        <source srcset="images/bd/hero.jpg" >
                         
-                        <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                        <img srcset="images/bd/hero.jpg" alt="responsive image" class="d-block img-fluid">
                      </picture>
                      <div class="carousel-caption relative">
                         
@@ -60,7 +61,7 @@
                   <div class="carousel-item">
                      <picture>
                         
-                        <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                        <img srcset="images/bd/hero.jpg" alt="responsive image" class="d-block img-fluid">
                      </picture>
                      <div class="carousel-caption relative">
                         
@@ -69,10 +70,10 @@
                  
                   <div class="carousel-item">
                      <picture>
-                        <source srcset="images/banner.jpg" >
-                        <source srcset="images/banner.jpg" >
-                        <source srcset="images/banner.jpg" >
-                        <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                        <source srcset="images/bd/hero.jpg" >
+                        <source srcset="images/bd/hero.jpg" >
+                        <source srcset="images/bd/hero.jpg" >
+                        <img srcset="images/bd/hero.jpg" alt="responsive image" class="d-block img-fluid">
                      </picture>
                      <div class="carousel-caption relative">
                         
@@ -109,13 +110,13 @@
                   <div class="row d_flex">
                    <div class="col-md-7">
                      <div class="about_img">
-                        <figure><img src="images/about_img.jpg" alt="#"/>
+                        <figure><img src="images/bd/t4.jpg" alt="#"/>
                         </figure>
                      </div>
                    </div>
                    <div class="col-md-5">
                      <div class="about_img">
-                        <figure><img src="images/about_img1.jpg" alt="#"/>
+                        <figure><img src="images/bd/t6.jpg" alt="#"/>
                         </figure>
                      </div>
                    </div>
@@ -206,125 +207,8 @@
             </div>
          </div>
          
-         <div id="myCarousel" class="carousel slide clients_banner" data-ride="carousel">
-            <ol class="carousel-indicators">
-               <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-               <li data-target="#myCarousel" data-slide-to="1"></li>
-               <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                        <div class="row d_flex">
-                           <div class="col-md-6">
-                              <div class="custom">
-                                 <div class="d_flex">
-                                    <i><img src="images/customer1.jpg" alt="#"/></i>
-                                    <div class="clint">
-                                      <h4>Dan Balan</h4>
-                                      <span>Client</span>
-                                    </div>
-                                 </div>
-                                  <p>readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their </p>
-                                  <img src="images/test.png" alt="#"/>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="custom">
-                                 <div class="d_flex">
-                                    <i><img src="images/customer2.jpg" alt="#"/></i>
-                                    <div class="clint">
-                                      <h4>Mor Balan</h4>
-                                      <span>Client</span>
-                                    </div>
-                                 </div>
-                                  <p>readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their </p>
-                                  <img src="images/test.png" alt="#"/>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                       <div class="row d_flex">
-                           <div class="col-md-6">
-                              <div class="custom">
-                                 <div class="d_flex">
-                                    <i><img src="images/customer1.jpg" alt="#"/></i>
-                                    <div class="clint">
-                                      <h4>Dan Balan</h4>
-                                      <span>Client</span>
-                                    </div>
-                                 </div>
-                                  <p>readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their </p>
-                                  <img src="images/test.png" alt="#"/>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="custom">
-                                 <div class="d_flex">
-                                    <i><img src="images/customer2.jpg" alt="#"/></i>
-                                    <div class="clint">
-                                      <h4>Mor Balan</h4>
-                                      <span>Client</span>
-                                    </div>
-                                 </div>
-                                  <p>readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their </p>
-                                  <img src="images/test.png" alt="#"/>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                       <div class="row d_flex">
-                           <div class="col-md-6">
-                              <div class="custom">
-                                 <div class="d_flex">
-                                    <i><img src="images/customer1.jpg" alt="#"/></i>
-                                    <div class="clint">
-                                      <h4>Dan Balan</h4>
-                                      <span>Client</span>
-                                    </div>
-                                 </div>
-                                  <p>readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their </p>
-                                  <img src="images/test.png" alt="#"/>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="custom">
-                                 <div class="d_flex">
-                                    <i><img src="images/customer2.jpg" alt="#"/></i>
-                                    <div class="clint">
-                                      <h4>Mor Balan</h4>
-                                      <span>Client</span>
-                                    </div>
-                                 </div>
-                                  <p>readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their </p>
-                                  <img src="images/test.png" alt="#"/>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
-            <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            <span class="sr-only">Next</span>
-            </a>
-         </div>
+         <?php $limit = 3; include 'testimonials_partial.php'; ?>
+         <div class="bd-more"><a class="pj-btn" href="testimonail.php">Read more stories</a></div>
       </div>
       
       <div class="choose">

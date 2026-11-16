@@ -1,240 +1,59 @@
 <?php
-include 'db.php';
-
-// Add new project
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_project'])) {
-    // Prepare the statement to include the phone number
-    $stmt = $conn->prepare("INSERT INTO project (name, starting_date, ending_date, location, description, number, status) VALUES (?, ?, ?, ?, ?, ?, 'Unapproved')");
-    $stmt->bind_param("ssssss", $_POST['proj_name'], $_POST['start_date'], $_POST['end_date'], $_POST['location'], $_POST['description'], $_POST['number']);
-    $stmt->execute();
-    $stmt->close();
-    header("Location: project_list.php");
-    exit();
-}
-
-// Delete project
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    $stmt = $conn->prepare("DELETE FROM project WHERE name = ?");
-    $stmt->bind_param("s", $id);
-    $stmt->execute();
-    $stmt->close();
-    header("Location: project_list.php");
-    exit();
-}
-
-// Update approval status
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status']) && isset($_POST['name'])) {
-    $stmt = $conn->prepare("UPDATE project SET status = ? WHERE name = ?");
-    $stmt->bind_param("ss", $_POST['status'], $_POST['name']);
-    $stmt->execute();
-    $stmt->close();
-    header("Location: project_list.php");
-    exit();
-}
-
-// Fetch all projects
-$projects = $conn->query("SELECT * FROM project");
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Projects</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            padding: 20px;
-        }
-
-        .nav {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .nav a {
-            text-decoration: none;
-            background: #007bff;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            transition: background 0.3s ease;
-        }
-
-        .nav a:hover {
-            background: #0056b3;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card strong {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .delete-btn {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            color: red;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .delete-btn:hover {
-            color: darkred;
-        }
-
-        form.inline-form {
-            display: inline;
-        }
-
-        /* Modal styles */
-        #addModal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-        }
-
-        #addModal .modal-content {
-            background: white;
-            padding: 20px;
-            margin: 100px auto;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        #addModal .close {
-            position: absolute;
-            right: 15px;
-            top: 10px;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        input, textarea, select {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            background: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        input[type="submit"]:hover {
-            background: #0056b3;
-        }
-
-        /* Status styling */
-        .status {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        .status-approved {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .status-unapproved {
-            background-color: #ffc107;
-            color: black;
-        }
-    </style>
-</head>
-<body>
-
-<div class="nav">
-    <a href="admin_view.php">Home</a>
-    <a href="#" onclick="document.getElementById('addModal').style.display='block'">Add Project</a>
-</div>
-
-<h2 style="text-align:center;">Project List</h2>
-
-<?php while ($proj = $projects->fetch_assoc()): ?>
-    <div class="card">
-        <a class="delete-btn" href="?delete=<?= urlencode($proj['name']) ?>" onclick="return confirm('Delete this project?');">×</a>
-        <strong><?= htmlspecialchars($proj['name']) ?></strong><br>
-        Start Date: <?= htmlspecialchars($proj['starting_date']) ?><br>
-        End Date: <?= htmlspecialchars($proj['ending_date']) ?><br>
-        Location: <?= htmlspecialchars($proj['location']) ?><br>
-        Description: <?= nl2br(htmlspecialchars($proj['description'])) ?><br>
-        Phone Number: <?= htmlspecialchars($proj['number']) ?><br>
-        
-        <!-- Status indicator -->
-        <span class="status <?= $proj['status'] == 'Approved' ? 'status-approved' : 'status-unapproved' ?>">
-            <?= htmlspecialchars($proj['status']) ?>
-        </span><br>
-
-        <!-- Update form for status -->
-        <form method="POST" class="inline-form">
-            <input type="hidden" name="name" value="<?= htmlspecialchars($proj['name']) ?>">
-            <select name="status">
-                <option value="Approved" <?= $proj['status'] == 'Approved' ? 'selected' : '' ?>>Approved</option>
-                <option value="Unapproved" <?= $proj['status'] == 'Unapproved' ? 'selected' : '' ?>>Unapproved</option>
-            </select>
-            <input type="submit" value="Update">
-        </form>
-    </div>
-<?php endwhile; ?>
-
-<!-- Add Project Modal -->
-<div id="addModal">
-    <div class="modal-content">
-        <span class="close" onclick="document.getElementById('addModal').style.display='none'">&times;</span>
-        <h3>Add Project</h3>
-        <form method="POST">
-            <input type="text" name="proj_name" placeholder="Project Name" required>
-            <input type="date" name="start_date" required>
-            <input type="date" name="end_date" required>
-            <input type="text" name="location" placeholder="Location" required>
-            <textarea name="description" placeholder="Description" rows="4" required></textarea>
-            <input type="text" name="number" placeholder="Phone Number" required>
-            <input type="submit" name="add_project" value="Add">
-        </form>
-    </div>
-</div>
-
-<script>
-    window.onclick = function(e) {
-        const modal = document.getElementById('addModal');
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
+require_once __DIR__ . '/admin_layout.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['add_project'])) {
+        $s = $conn->prepare("INSERT INTO project (name, starting_date, ending_date, location, description, number, status) VALUES (?,?,?,?,?,?,'Approved')");
+        $s->bind_param("ssssss", $_POST['proj_name'], $_POST['start_date'], $_POST['end_date'], $_POST['location'], $_POST['description'], $_POST['number']);
+        $s->execute();
+    } elseif (isset($_POST['delete_name'])) {
+        $s = $conn->prepare("DELETE FROM project WHERE name = ?");
+        $s->bind_param("s", $_POST['delete_name']);
+        $s->execute();
+    } elseif (isset($_POST['status'], $_POST['name'])) {
+        $st = $_POST['status'] === 'Approved' ? 'Approved' : 'Unapproved';
+        $s = $conn->prepare("UPDATE project SET status = ? WHERE name = ?");
+        $s->bind_param("ss", $st, $_POST['name']);
+        $s->execute();
     }
-</script>
-
-</body>
-</html>
+    header("Location: project_list.php"); exit();
+}
+$rows = $conn->query("SELECT * FROM project ORDER BY (status='Unapproved') DESC, starting_date DESC");
+admin_header('Projects', 'projects');
+?>
+<div class="panel">
+  <div class="panel-h"><h2>All projects (<?= $rows->num_rows ?>)</h2>
+    <div class="d-flex gap-2"><input class="search" data-filter="#t" placeholder="Search..."><button class="abtn" data-bs-toggle="modal" data-bs-target="#addM"><i class="bi bi-plus-lg"></i> Add project</button></div></div>
+  <div class="tbl-wrap"><table class="tbl" id="t">
+    <thead><tr><th>Project</th><th>Location</th><th>Dates</th><th>Contact</th><th>Submitted by</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+    <?php while ($r = $rows->fetch_assoc()): $ap = $r['status'] === 'Approved'; ?>
+      <tr>
+        <td><strong><?= htmlspecialchars($r['name']) ?></strong><br><small class="text-muted"><?= htmlspecialchars(mb_strimwidth($r['description'], 0, 60, '…')) ?></small></td>
+        <td><?= htmlspecialchars($r['location']) ?></td>
+        <td><small><?= htmlspecialchars($r['starting_date']) ?><br>→ <?= htmlspecialchars($r['ending_date']) ?></small></td>
+        <td><?= htmlspecialchars($r['number']) ?></td>
+        <td><?= htmlspecialchars($r['submitted_by'] ?? '—') ?><?php if (!empty($r['email'])): ?><br><small class="text-muted"><?= htmlspecialchars($r['email']) ?></small><?php endif; ?></td>
+        <td><span class="pill <?= $ap ? 'p-ok' : 'p-warn' ?>"><?= $ap ? 'Approved' : 'Pending' ?></span></td>
+        <td class="text-nowrap">
+          <form method="POST" class="inl"><input type="hidden" name="name" value="<?= htmlspecialchars($r['name']) ?>">
+            <?php if ($ap): ?><button class="abtn sm ghost" name="status" value="Unapproved">Unapprove</button>
+            <?php else: ?><button class="abtn sm" name="status" value="Approved"><i class="bi bi-check-lg"></i> Approve</button><?php endif; ?></form>
+          <form method="POST" class="inl" onsubmit="return confirm('Delete this project?')"><input type="hidden" name="delete_name" value="<?= htmlspecialchars($r['name']) ?>"><button class="abtn sm red"><i class="bi bi-trash"></i></button></form>
+        </td>
+      </tr>
+    <?php endwhile; ?>
+    </tbody>
+  </table></div>
+</div>
+<div class="modal fade" id="addM" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><form method="POST" class="modal-content">
+  <div class="modal-header"><h5 class="modal-title">Add project (published immediately)</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body">
+    <input class="fi" name="proj_name" placeholder="Project name" required>
+    <div class="row g-2"><div class="col"><input class="fi" type="date" name="start_date" required></div><div class="col"><input class="fi" type="date" name="end_date" required></div></div>
+    <input class="fi" name="location" placeholder="Location" required>
+    <textarea class="fi" name="description" rows="3" maxlength="500" placeholder="Description" required></textarea>
+    <input class="fi" name="number" placeholder="Phone number" required>
+  </div>
+  <div class="modal-footer"><button class="abtn" name="add_project">Add</button></div>
+</form></div></div>
+<?php admin_footer(); ?>

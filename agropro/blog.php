@@ -1,261 +1,113 @@
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['message'])) {
-    $userMsg = strtolower(trim($_POST['message']));
-    $botResponse = "Sorry, I couldn't find any info for that.";
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-  
-   $servername = "localhost";
-   $username = "root";
-   $password = "";
-   $dbname = "smart_farming";
-
-   $conn = new mysqli($servername, $username, $password, $dbname);
-   if ($conn->connect_error) {
-      echo "Database connection failed!";
-      exit;
-   }
-  
-   if (strpos($userMsg, 'market') !== false) {
-        $sql = "SELECT name, address FROM market LIMIT 3";
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            $botResponse = "Here are some markets:\n";
-            while ($row = $result->fetch_assoc()) {
-                $botResponse .= "- {$row['name']} at {$row['address']}\n";
-            }
-        }
-    }
-
-
-    elseif (strpos($userMsg, 'helper') !== false || strpos($userMsg, 'labour') !== false) {
-        $sql = "SELECT name, phone_number FROM helper LIMIT 3";
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            $botResponse = "Available helpers:\n";
-            while ($row = $result->fetch_assoc()) {
-                $botResponse .= "- {$row['name']} (Phone: {$row['phone_number']})\n";
-            }
-        }
-    }
-
-
-    elseif (strpos($userMsg, 'weather') !== false || strpos($userMsg, 'season') !== false) {
-        $sql = "SELECT season, temperature FROM weather LIMIT 3";
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $botResponse = "Current season: {$row['season']}. Temperature: {$row['temperature']}°C";
-        }
-    }
-
-
-    elseif (strpos($userMsg, 'land') !== false || strpos($userMsg, 'soil') !== false) {
-        $sql = "SELECT soil_type, location FROM lands LIMIT 3";
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            $botResponse = "Land details:\n";
-            while ($row = $result->fetch_assoc()) {
-                $botResponse .= "- {$row['soil_type']} soil at {$row['location']}\n";
-            }
-        }
-    }
-
-   
-    elseif (strpos($userMsg, 'crop') !== false || strpos($userMsg, 'plant') !== false) {
-        $sql = "SELECT name, type, about FROM crops LIMIT 3";
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            $botResponse = "Available crops:\n";
-            while ($row = $result->fetch_assoc()) {
-                $botResponse .= "- {$row['name']} ({$row['type']}): {$row['about']}\n";
-            }
-        }
-    }
-
-  
-    elseif (strpos($userMsg, 'equipment') !== false || strpos($userMsg, 'tool') !== false) {
-        $sql = "SELECT name, type FROM equipments LIMIT 3";
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            $botResponse = "Equipments:\n";
-            while ($row = $result->fetch_assoc()) {
-                $botResponse .= "- {$row['name']} ({$row['type']})\n";
-            }
-        }
-    }
-
-  
-    elseif (strpos($userMsg, 'pesticide') !== false) {
-        $sql = "SELECT name, type FROM pestides LIMIT 3";
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            $botResponse = "Pesticides:\n";
-            while ($row = $result->fetch_assoc()) {
-                $botResponse .= "- {$row['name']} ({$row['type']})\n";
-            }
-        }
-    }
-
-  
-    elseif (strpos($userMsg, 'fertilizer') !== false) {
-        $sql = "SELECT name, type, nflag, pflag, poflag FROM fertilizer LIMIT 3";
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            $botResponse = "Fertilizers:\n";
-            while ($row = $result->fetch_assoc()) {
-                $botResponse .= "- {$row['name']} ({$row['type']}), N: {$row['nflag']}, P: {$row['pflag']}, K: {$row['poflag']}\n";
-            }
-        }
-    }
-
-    echo nl2br($botResponse);
-    $conn->close();
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-
-      <title>Smart_farming</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
- 
-      <link rel="stylesheet" href="css/bootstrap.min.css">
-     
-      <link rel="stylesheet" href="css/style.css">
-     
-      <link rel="stylesheet" href="css/responsive.css">
-     
-      <link rel="icon" href="images/fevicon.png" type="image/gif" />
-    
-      <link rel="stylesheet" href="css/owl.carousel.min.css">
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-  
-  <meta charset="UTF-8">
-  <title>SmartFarming - Chatbot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgroBot - Smart Farming</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/projects.css">
+  <link rel="icon" href="images/fevicon.png" type="image/gif" />
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('mp.png') no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    .chat-container {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 10px;
-      width: 350px;
-      height: 500px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      display: flex;
-      flex-direction: column;
-      margin: 100px auto;
-    }
-
-    .chat-box {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .chat-message {
-      margin-bottom: 10px;
-    }
-
-    .chat-message.user {
-      text-align: right;
-    }
-
-    .chat-message.bot {
-      text-align: left;
-      color: #2ecc71;
-    }
-
-    .chat-input {
-      display: flex;
-      border-top: 1px solid #ccc;
-    }
-
-    .chat-input input {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      outline: none;
-    }
-
-    .chat-input button {
-      padding: 10px 15px;
-      background-color: #2ecc71;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    h1.title {
-      text-align: center;
-      color: white;
-      margin-top: 50px;
-      text-shadow: 1px 1px 5px #000;
-    }
+    .chat-wrap{background:#f4f7ea;padding:40px 0 60px}
+    .chat-box{max-width:860px;margin:auto;background:#fff;border-radius:20px;box-shadow:0 12px 36px rgba(0,0,0,.12);overflow:hidden;display:flex;flex-direction:column;height:640px}
+    .chat-top{background:linear-gradient(135deg,#6b7908,#4f5a05);color:#fff;padding:16px 22px;display:flex;align-items:center;gap:14px}
+    .chat-avatar{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff}
+    .chat-top strong{display:block;font-size:18px;color:#fff}.chat-top small{color:#e9f0c0}
+    .chat-top .dot{display:inline-block;width:8px;height:8px;background:#9be36b;border-radius:50%;margin-right:5px}
+    .chat-log{flex:1;overflow-y:auto;padding:22px;background:#fafcf3;display:flex;flex-direction:column;gap:14px}
+    .msg{max-width:80%;padding:12px 16px;border-radius:16px;line-height:1.6;font-size:15px;word-wrap:break-word;animation:pop .25s ease}
+    .msg.bot{background:#fff;color:#1f2a1f;border:1px solid #e5ebd0;border-bottom-left-radius:4px;align-self:flex-start}
+    .msg.user{background:#6b7908;color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+    .msg ul{margin:6px 0 6px 18px;padding:0}.msg p{margin:0 0 6px;font-size:15px;line-height:1.6;color:inherit}
+    .msg strong{color:inherit}
+    .typing span{display:inline-block;width:8px;height:8px;margin:0 2px;background:#9aa55a;border-radius:50%;animation:bounce 1.2s infinite}
+    .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 12px;background:#fafcf3}
+    .chips button{background:#fff;border:1.5px solid #6b7908;color:#6b7908;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;transition:.2s}
+    .chips button:hover{background:#6b7908;color:#fff}
+    .chat-form{display:flex;gap:10px;padding:16px 20px;border-top:1px solid #eef2dc;background:#fff}
+    .chat-form input{flex:1;padding:13px 18px;border:1.5px solid #dfe5cf;border-radius:30px;font-size:15px;color:#1f2a1f}
+    .chat-form input:focus{outline:0;border-color:#6b7908;box-shadow:0 0 0 3px rgba(107,121,8,.15)}
+    .chat-form button{width:50px;height:50px;border-radius:50%;border:0;background:#6b7908;color:#fff;font-size:18px;cursor:pointer;transition:.2s}
+    .chat-form button:hover{background:#4f5a05}.chat-form button:disabled{background:#c9cfb8}
+    @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+    @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    @media(max-width:600px){.chat-box{height:calc(100vh - 160px)}.msg{max-width:92%}}
   </style>
 </head>
-<body>
-
+<body class="main-layout inner_page">
   <?php include('navbar.html'); ?>
+  <section class="page-hero">
+    <span class="badge-pill">Chatbot</span>
+    <h1>Ask AgroBot</h1>
+    <p>Your smart farming assistant — ask about crops, soil, fertilizer, pests, weather, markets and costs.</p>
+  </section>
 
-  <div class="chat-container">
-    <div class="chat-box" id="chatBox">
-      <div class="chat-message bot">Hello! Ask me anything about Smart Farming.</div>
+  <section class="chat-wrap">
+    <div class="container">
+      <div class="chat-box">
+        <div class="chat-top">
+          <div class="chat-avatar"><i class="fa fa-leaf"></i></div>
+          <div><strong>AgroBot</strong><small><span class="dot"></span>Online — here to help farmers</small></div>
+        </div>
+        <div class="chat-log" id="log"></div>
+        <div class="chips" id="chips">
+          <button>Best crop for Aman season?</button>
+          <button>How to control pests in rice?</button>
+          <button>Which fertilizer for loamy soil?</button>
+          <button>Show markets</button>
+          <button>ধানের রোগ কীভাবে দমন করব?</button>
+        </div>
+        <form class="chat-form" id="form">
+          <input id="input" type="text" placeholder="Type your farming question..." autocomplete="off" maxlength="500">
+          <button id="send" type="submit" title="Send"><i class="fa fa-paper-plane"></i></button>
+        </form>
+      </div>
     </div>
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type your message..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </div>
+  </section>
 
   <?php include 'footer.php'; ?>
-
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
   <script>
-    function sendMessage() {
-      const userInput = document.getElementById("userInput");
-      const message = userInput.value.trim();
-      if (message === "") return;
-
-      addMessage("user", message);
-      userInput.value = "";
-
-      fetch("blog.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: "message=" + encodeURIComponent(message)
-      })
-      .then(response => response.text())
-      .then(reply => addMessage("bot", reply));
+    const log = document.getElementById('log'), input = document.getElementById('input'), send = document.getElementById('send');
+    const history = [];
+    const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    function md(t) { // minimal markdown: **bold**, - lists, line breaks
+      const lines = esc(t).split('\n'); let html = '', inList = false;
+      for (let l of lines) {
+        l = l.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/_(.+?)_/g, '<em>$1</em>');
+        const li = l.match(/^\s*(?:[-*•]|\d+\.)\s+(.*)/);
+        if (li) { if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + li[1] + '</li>'; }
+        else { if (inList) { html += '</ul>'; inList = false; } if (l.trim()) html += '<p>' + l + '</p>'; }
+      }
+      return html + (inList ? '</ul>' : '');
     }
-
-    function addMessage(sender, text) {
-      const chatBox = document.getElementById("chatBox");
-      const msgDiv = document.createElement("div");
-      msgDiv.className = "chat-message " + sender;
-      msgDiv.textContent = text;
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
+    function add(cls, html) {
+      const d = document.createElement('div'); d.className = 'msg ' + cls; d.innerHTML = html;
+      log.appendChild(d); log.scrollTop = log.scrollHeight; return d;
     }
+    add('bot', md("Hello! I'm **AgroBot** 🌾\nAsk me anything about farming — crops, soil, fertilizer, pests, weather, markets or costs. You can write in English or বাংলা."));
+
+    async function ask(text) {
+      text = text.trim(); if (!text) return;
+      document.getElementById('chips').style.display = 'none';
+      add('user', esc(text)); history.push({role: 'user', content: text});
+      input.value = ''; send.disabled = true;
+      const t = add('bot typing', '<span></span><span></span><span></span>');
+      try {
+        const r = await fetch('chat_api.php', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({messages: history})});
+        const data = await r.json();
+        t.className = 'msg bot'; t.innerHTML = md(data.reply || 'Sorry, something went wrong.');
+        history.push({role: 'assistant', content: data.reply || ''});
+      } catch (e) { t.className = 'msg bot'; t.innerHTML = md('Sorry, I could not reach the server. Please try again.'); history.pop(); }
+      send.disabled = false; input.focus(); log.scrollTop = log.scrollHeight;
+    }
+    document.getElementById('form').addEventListener('submit', e => { e.preventDefault(); ask(input.value); });
+    document.querySelectorAll('#chips button').forEach(b => b.onclick = () => ask(b.textContent));
   </script>
-
 </body>
 </html>

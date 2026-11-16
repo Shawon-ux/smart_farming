@@ -1,0 +1,57 @@
+/* Shared styling for Projects + Contact (project request) pages */
+:root{--g1:#6b7908;--g2:#8aa10b;--ink:#1f2a1f;--soft:#f4f7ea;}
+.site-navbar ul li a.active{color:var(--g1);font-weight:600;border-bottom:3px solid var(--g1);padding-bottom:4px}
+.page-hero{background:linear-gradient(135deg,rgba(25,40,5,.9),rgba(60,75,5,.85)),url(../images/bd/hero.jpg) center/cover;color:#fff;text-align:center;padding:70px 15px 60px}
+.page-hero h1{text-shadow:0 2px 6px rgba(0,0,0,.45);font-size:44px;font-weight:700;margin:0 0 10px;color:#fff}
+.page-hero p,.page-hero p a{color:#fff !important;opacity:1;font-size:18px;margin:0 auto;max-width:640px;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.page-hero .badge-pill{display:inline-block;background:rgba(255,255,255,.18);padding:6px 18px;border-radius:30px;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;font-size:13px}
+.pj-wrap{padding:60px 0;background:var(--soft)}
+.pj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px}
+.pj-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:.3s;display:flex;flex-direction:column}
+.pj-card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.14)}
+.pj-head{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;padding:22px}
+.pj-head h3{margin:0 0 8px;font-size:22px;color:#fff}
+.pj-head .loc{font-size:14px;opacity:.95}
+.pj-body{padding:22px;flex:1}
+.pj-body p.desc{color:#555;line-height:1.6}
+.pj-meta{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.pj-meta span{background:var(--soft);color:var(--g1);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:600}
+.pj-live{display:inline-block;background:#e6f6e0;color:#2e7d32;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700;margin-bottom:8px}
+.pj-foot{padding:0 22px 22px}
+.pj-btn{display:inline-block;border:0;cursor:pointer;background:var(--g1);color:#fff;padding:12px 26px;border-radius:30px;font-weight:600;transition:.25s;text-decoration:none}
+.pj-btn:hover{background:#4f5a05;color:#fff;transform:translateY(-2px)}
+.pj-btn.block{width:100%;text-align:center}
+.pj-toggle{background:none;border:2px solid var(--g1);color:var(--g1);width:100%;padding:10px;border-radius:30px;font-weight:600;cursor:pointer;transition:.25s}
+.pj-toggle:hover{background:var(--g1);color:#fff}
+.pj-help{display:none;margin-top:16px}
+.pj-help.open{display:block}
+.pj-input{width:100%;padding:12px 16px;border:1.5px solid #dfe5cf;border-radius:10px;margin-bottom:12px;font-size:15px;background:#fff;transition:.2s}
+.pj-input:focus{outline:0;border-color:var(--g1);box-shadow:0 0 0 3px rgba(107,121,8,.15)}
+.pj-alert{padding:14px 20px;border-radius:12px;margin-bottom:28px;font-weight:600}
+.pj-alert.ok{background:#e6f6e0;color:#2e7d32}.pj-alert.err{background:#fdeaea;color:#c62828}
+.pj-empty{text-align:center;padding:60px 20px;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.pj-empty h3{color:var(--ink)}
+/* contact form */
+.req-wrap{padding:60px 0;background:var(--soft)}
+.req-card{background:#fff;border-radius:20px;box-shadow:0 12px 36px rgba(0,0,0,.1);overflow:hidden;display:flex;flex-wrap:wrap}
+.req-side{flex:1 1 280px;background:linear-gradient(160deg,var(--g1),#3d4a05);color:#fff;padding:40px 32px}
+.req-side h3{color:#fff;margin-bottom:18px}
+.req-side ol{padding-left:20px;line-height:2}
+.req-side .note{margin-top:22px;background:rgba(255,255,255,.15);padding:14px;border-radius:12px;font-size:14px}
+.req-form{flex:2 1 420px;padding:40px 36px}
+.req-form label{font-weight:600;color:var(--ink);margin-bottom:4px;display:block;font-size:14px}
+.req-form .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.req-form .row2{grid-template-columns:1fr}.page-hero h1{font-size:30px}.pj-grid{grid-template-columns:1fr}}
+/* Testimonials (Bangladesh farmers) */
+.bd-testi{background:#f4f7ea;padding:50px 0 70px}
+.bd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px}
+.bd-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:.3s}
+.bd-card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.14)}
+.bd-photo{height:190px;background-size:cover;background-position:center}
+.bd-body{padding:22px}
+.bd-stars{color:#f5a623;letter-spacing:2px;margin-bottom:8px}
+.bd-body p{color:#444;font-size:15px;line-height:1.7;margin-bottom:16px}
+.bd-who{display:flex;align-items:center;gap:12px}
+.bd-av{width:44px;height:44px;border-radius:50%;background:#6b7908;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
+.bd-who strong{display:block;color:#1f2a1f}.bd-who small{color:#6b7908;font-weight:600}
+.bd-more{text-align:center;padding:0 0 50px;background:#f4f7ea;margin-top:-20px}

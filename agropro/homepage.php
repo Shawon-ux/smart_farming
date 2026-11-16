@@ -67,9 +67,9 @@
                               <div class="carousel-inner" role="listbox">
                                  <div class="carousel-item active">
                                     <picture>
-                                       <source srcset="images/banner.jpg" >
+                                       <source srcset="images/bd/hero.jpg" >
                                      
-                                       <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                                       <img srcset="images/bd/hero.jpg" alt="responsive image" class="d-block img-fluid">
                                     </picture>
                                     <div class="carousel-caption relative">
                                        
@@ -79,7 +79,7 @@
                                  <div class="carousel-item">
                                     <picture>
                                      
-                                       <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                                       <img srcset="images/bd/hero.jpg" alt="responsive image" class="d-block img-fluid">
                                     </picture>
                                     <div class="carousel-caption relative">
                                        
@@ -88,10 +88,10 @@
                                
                                  <div class="carousel-item">
                                     <picture>
-                                       <source srcset="images/banner.jpg" >
-                                       <source srcset="images/banner.jpg" >
-                                       <source srcset="images/banner.jpg" >
-                                       <img srcset="images/banner.jpg" alt="responsive image" class="d-block img-fluid">
+                                       <source srcset="images/bd/hero.jpg" >
+                                       <source srcset="images/bd/hero.jpg" >
+                                       <source srcset="images/bd/hero.jpg" >
+                                       <img srcset="images/bd/hero.jpg" alt="responsive image" class="d-block img-fluid">
                                     </picture>
                                     <div class="carousel-caption relative">
                                        
@@ -128,13 +128,13 @@
                   <div class="row d_flex">
                    <div class="col-md-7">
                      <div class="about_img">
-                        <figure><img src="images/about_img.jpg" alt="#"/>
+                        <figure><img src="images/bd/t4.jpg" alt="#"/>
                         </figure>
                      </div>
                    </div>
                    <div class="col-md-5">
                      <div class="about_img">
-                        <figure><img src="images/about_img1.jpg" alt="#"/>
+                        <figure><img src="images/bd/t6.jpg" alt="#"/>
                         </figure>
                      </div>
                    </div>

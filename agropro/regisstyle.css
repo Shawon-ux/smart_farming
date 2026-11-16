@@ -12,7 +12,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: 
       linear-gradient(rgba(227, 227, 227, 0.171), rgba(5, 96, 5, 0.275)),
-      url('https://www.symmetryelectronics.com/getmedia/5ddf849b-de2f-42f5-99c6-24ee59a98b22/iStock-1429073633.jpg') center/cover no-repeat;
+      url('images/bd/register.jpg') center/cover no-repeat;
   
       position: relative;
   overflow: hidden;
@@ -26,7 +26,7 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(240, 248, 242, 0.4);
+  background: rgba(240, 248, 242, 0.15);
   z-index: 0;
 }
 
