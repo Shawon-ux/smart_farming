@@ -15,7 +15,7 @@ function getItems($table, $nameCol, $priceCol) {
     return $items;
 }
 
-// Get farmers for user selection
+
 $farmers = [];
 $result = $conn->query("SELECT id, name FROM farmer");
 while ($row = $result->fetch_assoc()) {
@@ -27,16 +27,16 @@ $equipments = getItems("equipments", "name", "rental_price_per_day");
 $fertilizer = getItems("fertilizer", "name", "price_per_kg");
 $pesticides = getItems("pesticides", "name", "price_per_unit");
 
-// Handle file generation
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
     $user_id = $_POST['user_id'];
     $land_size = $_POST['land_size'];
     $crop_id = $_POST['crop_id'];
     
-    // Get farmer name
+    
     $farmer_name = $farmers[$user_id] ?? 'Unknown Farmer';
     
-    // Get crop name and price
+    
     $crop_name = '';
     $crop_price = 0;
     foreach ($crops as $item) {
@@ -47,10 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
         }
     }
     
-    // Calculate CROP cost (price per unit × land size)
+    
     $crop_cost = $crop_price * $land_size;
     
-    // Calculate other costs
+    
     $equipment_cost = 0;
     $fertilizer_cost = 0;
     $pesticides_cost = 0;
@@ -78,11 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
 
     $pdf = new FPDF();
     $pdf->AddPage();
-    $pdf->SetFont('Arial', 'B', 14); 
+    $pdf->SetFont('Arial', 'B', 14);
 
-    
-
-    
     $pdf->Cell(0, 10, "Farm Cost Report", 0, 1, 'C');
     $pdf->Ln(10);
     
@@ -101,127 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_files'])) {
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(60, 10, "Total Cost: $total_cost", 0, 1);
     
-    $pdf->Output('D', 'farm_report.pdf'); 
+    $pdf->Output('D', 'farm_report.pdf');
     exit;
     ob_end_flush();
 
-
-  
-    $text_content = "FARMING COST CALCULATION REPORT\n";
-    $text_content .= "===============================\n";
-    $text_content .= "Farmer: $farmer_name\n";
-    $text_content .= "Date: " . date('Y-m-d H:i:s') . "\n\n";
-    $text_content .= "CROP DETAILS\n";
-    $text_content .= "------------\n";
-    $text_content .= "Crop: $crop_name\n";
-    $text_content .= "Land Size: $land_size acres\n";
-    $text_content .= "Crop Price (per acre): $crop_price BDT\n";
-    $text_content .= "Total Crop Cost: $crop_cost BDT\n\n";
-    
-    if ($equipment_cost > 0) {
-        $text_content .= "EQUIPMENT\n";
-        $text_content .= "---------\n";
-        $text_content .= "Equipment: {$_POST['equipment']}\n";
-        $text_content .= "Quantity: {$_POST['equipment_qty']} days\n";
-        $text_content .= "Daily Rate: $equipment_price BDT\n";
-        $text_content .= "Total Equipment Cost: $equipment_cost BDT\n\n";
-    }
-    
-    if ($fertilizer_cost > 0) {
-        $text_content .= "FERTILIZER\n";
-        $text_content .= "----------\n";
-        $text_content .= "Fertilizer: {$_POST['fertilizer']}\n";
-        $text_content .= "Quantity: {$_POST['fertilizer_qty']} kg\n";
-        $text_content .= "Price per kg: $fertilizer_price BDT\n";
-        $text_content .= "Total Fertilizer Cost: $fertilizer_cost BDT\n\n";
-    }
-    
-    if ($pesticides_cost > 0) {
-        $text_content .= "PESTICIDES\n";
-        $text_content .= "---------\n";
-        $text_content .= "Pesticides: {$_POST['pesticides']}\n";
-        $text_content .= "Quantity: {$_POST['pesticides_qty']} units\n";
-        $text_content .= "Price per unit: $pesticides_price BDT\n";
-        $text_content .= "Total Pesticides Cost: $pesticides_cost BDT\n\n";
-    }
-    
-    $text_content .= "TOTAL COST: $total_cost BDT\n";
-    
-
-    $image = imagecreatetruecolor(800, 600);
-    $white = imagecolorallocate($image, 255, 255, 255);
-    $black = imagecolorallocate($image, 0, 0, 0);
-    $green = imagecolorallocate($image, 0, 100, 0);
-    $darkGreen = imagecolorallocate($image, 0, 80, 0);
-    
-    imagefill($image, 0, 0, $white);
-    
-
-    imagettftext($image, 24, 0, 50, 50, $darkGreen, 'arial.ttf', "FARMING COST CALCULATION");
-    
-
-    imagettftext($image, 14, 0, 50, 90, $black, 'arial.ttf', "Farmer: $farmer_name");
-    imagettftext($image, 14, 0, 50, 120, $black, 'arial.ttf', "Date: " . date('Y-m-d H:i:s'));
-    
-  
-    $y = 170;
-    imagettftext($image, 16, 0, 50, $y, $darkGreen, 'arial.ttf', "CROP DETAILS");
-    imagettftext($image, 14, 0, 50, $y + 30, $black, 'arial.ttf', "Crop: $crop_name");
-    imagettftext($image, 14, 0, 50, $y + 60, $black, 'arial.ttf', "Land Size: $land_size acres");
-    imagettftext($image, 14, 0, 50, $y + 90, $black, 'arial.ttf', "Price per acre: $crop_price BDT");
-    imagettftext($image, 14, 0, 400, $y + 90, $black, 'arial.ttf', "Total: $crop_cost BDT");
-    
-    $y += 130;
-    
-   
-    if ($equipment_cost > 0) {
-        imagettftext($image, 16, 0, 50, $y, $darkGreen, 'arial.ttf', "EQUIPMENT");
-        imagettftext($image, 14, 0, 50, $y + 30, $black, 'arial.ttf', "Equipment: {$_POST['equipment']}");
-        imagettftext($image, 14, 0, 50, $y + 60, $black, 'arial.ttf', "Days: {$_POST['equipment_qty']}");
-        imagettftext($image, 14, 0, 50, $y + 90, $black, 'arial.ttf', "Daily Rate: $equipment_price BDT");
-        imagettftext($image, 14, 0, 400, $y + 90, $black, 'arial.ttf', "Total: $equipment_cost BDT");
-        $y += 130;
-    }
-    
-   
-    if ($fertilizer_cost > 0) {
-        imagettftext($image, 16, 0, 50, $y, $darkGreen, 'arial.ttf', "FERTILIZER");
-        imagettftext($image, 14, 0, 50, $y + 30, $black, 'arial.ttf', "Type: {$_POST['fertilizer']}");
-        imagettftext($image, 14, 0, 50, $y + 60, $black, 'arial.ttf', "Quantity: {$_POST['fertilizer_qty']} kg");
-        imagettftext($image, 14, 0, 50, $y + 90, $black, 'arial.ttf', "Price per kg: $fertilizer_price BDT");
-        imagettftext($image, 14, 0, 400, $y + 90, $black, 'arial.ttf', "Total: $fertilizer_cost BDT");
-        $y += 130;
-    }
-    
-
-    if ($pesticides_cost > 0) {
-        imagettftext($image, 16, 0, 50, $y, $darkGreen, 'arial.ttf', "PESTICIDES");
-        imagettftext($image, 14, 0, 50, $y + 30, $black, 'arial.ttf', "Type: {$_POST['pesticides']}");
-        imagettftext($image, 14, 0, 50, $y + 60, $black, 'arial.ttf', "Quantity: {$_POST['pesticides_qty']} units");
-        imagettftext($image, 14, 0, 50, $y + 90, $black, 'arial.ttf', "Price per unit: $pesticides_price BDT");
-        imagettftext($image, 14, 0, 400, $y + 90, $black, 'arial.ttf', "Total: $pesticides_cost BDT");
-        $y += 130;
-    }
-    
-    
-    imagettftext($image, 20, 0, 50, $y + 30, $darkGreen, 'arial.ttf', "TOTAL COST:");
-    imagettftext($image, 20, 0, 400, $y + 30, $darkGreen, 'arial.ttf', "$total_cost BDT");
-    
-    
-    $timestamp = time();
-    $text_filename = "calculation_{$timestamp}.txt";
-    $image_filename = "calculation_{$timestamp}.png";
-    
-
-    file_put_contents($text_filename, $text_content);
-    imagepng($image, $image_filename);
-    imagedestroy($image);
-    
-  
-    $download_links = [
-        'text' => $text_filename,
-        'image' => $image_filename
-    ];
 }
 
 function getPrice($table, $name, $priceColumn) {
@@ -243,14 +123,14 @@ function getPrice($table, $name, $priceColumn) {
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(to right, #e0f7fa, #e0f2f1);
             margin: 0;
-            padding: 20px;
+            padding: 2px;
         }
 
         .container {
             max-width: 700px;
             margin: auto;
             background: white;
-            padding: 30px;
+            padding: 5px;
             border-radius: 15px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
         }
@@ -388,30 +268,32 @@ function getPrice($table, $name, $priceColumn) {
 </head>
 <body>
     <head>
-    
+      
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     
+      
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-   
+    
       <title>Smart_farming</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
-    
+      
       <link rel="stylesheet" href="css/bootstrap.min.css">
- 
+      
       <link rel="stylesheet" href="css/style.css">
-
+      
       <link rel="stylesheet" href="css/responsive.css">
-
+    
       <link rel="icon" href="images/fevicon.png" type="image/gif" />
-   
+      
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
    </head>
     <div>
         <?php include('navbar.html'); ?>
@@ -560,48 +442,37 @@ function getPrice($table, $name, $priceColumn) {
             breakdown[type] = cost;
         });
         
-        // Update display
+        
         document.getElementById('displayCropCost').innerText = cropCost.toFixed(2) + " BDT";
         document.getElementById('displayEquipmentCost').innerText = breakdown.equipment.toFixed(2) + " BDT";
         document.getElementById('displayFertilizerCost').innerText = breakdown.fertilizer.toFixed(2) + " BDT";
         document.getElementById('displayPesticidesCost').innerText = breakdown.pesticides.toFixed(2) + " BDT";
         document.getElementById('total').innerText = total.toFixed(2) + " BDT";
         
-      
+    
         document.getElementById('resultSection').style.display = 'block';
         
-      
+    
         const requiredFields = ['userSelect', 'landSize', 'cropSelect'];
         const allFilled = requiredFields.every(id => document.getElementById(id).value !== '');
         
         document.getElementById('saveBtn').disabled = !allFilled;
         
-       
-        calculationData = {
-            user_id: document.getElementById('userSelect').value,
-            land_size: landSize,
-            crop_id: document.getElementById('cropSelect').value,
-            equipment: document.getElementById('equipmentSelect').value,
-            equipment_qty: document.getElementById('equipmentQty').value || 0,
-            fertilizer: document.getElementById('fertilizerSelect').value,
-            fertilizer_qty: document.getElementById('fertilizerQty').value || 0,
-            pesticides: document.getElementById('pesticidesSelect').value,
-            pesticides_qty: document.getElementById('pesticidesQty').value || 0,
-            total_cost: total
-        };
+        
+
     }
     
     function saveCalculation() {
-     
+        
         for (const key in calculationData) {
             document.getElementById('save_' + key).value = calculationData[key];
         }
         
-       
+    
         document.getElementById('saveForm').submit();
     }
     
-   
+    
     document.getElementById('userSelect').addEventListener('change', checkSaveButton);
     document.getElementById('landSize').addEventListener('input', checkSaveButton);
     document.getElementById('cropSelect').addEventListener('change', checkSaveButton);
