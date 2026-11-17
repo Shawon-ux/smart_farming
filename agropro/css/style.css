@@ -361,24 +361,33 @@ button {
 
 .site-navbar ul li a {
     color: #1c1c1b;
-    font-size: 17px;
+    font-size: 16px;
+    font-weight: 500;
     display: block;
     text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 30px;
+    background: #f3f6e4;
+    border: 1.5px solid #dfe8b8;
+    white-space: nowrap;
+    transition: .25s;
+}
+
+.site-navbar ul {
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .site-navbar ul li {
-    padding-right: 30px;
-}
-
-.site-navbar ul li:last-child {
     padding-right: 0;
 }
 
-.site-navbar ul li a:hover {
-    color: #6b7908;
-}
+.site-navbar ul li a:hover,
 .site-navbar ul li a.active {
-    color: #6b7908;
+    color: #fff;
+    background: #6b7908;
+    border-color: #6b7908;
+    box-shadow: 0 4px 10px rgba(107,121,8,.3);
 }
 
 /* navbar regular css end */
@@ -943,46 +952,7 @@ ul.menu_footer li a:hover {
     color: #6b7908;
 }
 
-.newsl {
-    width: 100%;
-    height: 51px;
-    background: #fff;
-    color: #c9c7c7;
-    font-size: 17px;
-    font-weight: normal;
-    box-shadow: inherit;
-    padding: 0 15px;
-    border: #fff solid 2px;
-    margin-bottom: 20px;
-   
-}
 
-.subsci_btn {
-    font-size: 16px;
-    transition: ease-in all 0.5s;
-    background-color: #6b7908;
-    text-transform: uppercase;
-    color: #fff;
-    display: block;
-    font-weight: normal;
-    line-height: 59px;
-    height: 59px;
-    max-width: 70px;
-    width: 100%;
-    display: block;
-    border:inherit;
-    border-radius:0px;
-}
-
-.subsci_btn:hover {
-    transition: ease-in all 0.5s;
-    box-shadow: 0 0 10px 0px #dddddd5e;
-}
-
-#colof *::placeholder {
-    color: #c9c7c7;
-    opacity: 1;
-}
 
 ul.recent li {
     display: flex;
