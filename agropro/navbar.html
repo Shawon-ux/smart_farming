@@ -35,3 +35,20 @@
         </div>
     </div>
 </header>
+<script>
+// Self-contained mobile/zoomed menu toggle (works even on pages that don't load custom.js)
+(function () {
+  var btn = document.querySelector('.site-navbar .nav-toggler');
+  var menu = document.querySelector('.site-navbar ul');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function () {
+    var before = menu.classList.contains('open');
+    setTimeout(function () {            // if custom.js already toggled it, do nothing
+      if (menu.classList.contains('open') === before) {
+        menu.classList.toggle('open');
+        btn.classList.toggle('toggler-open');
+      }
+    }, 0);
+  });
+})();
+</script>
